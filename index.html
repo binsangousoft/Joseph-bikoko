@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Complexe Scolaire Joseph Bikoko</title>
+  <title>Complexe Scolaire Joseph Bikoko – Consultation des Résultats</title>
 
-  <!-- ✅ AJOUT de jsPDF pour générer les fichiers PDF -->
+  <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
-    /* 🎨 tout ton style reste identique */
+    /* 🎨 Design original non modifié */
     body {
       font-family: "Poppins", Arial, sans-serif;
       background: linear-gradient(135deg, #e8f0ff, #cddfff);
@@ -36,9 +36,6 @@
     .Slogan { font-size: 1em; opacity: 0.9; }
     .annee { margin-top: 10px; font-weight: bold; color: #fff; background-color: #ff4c4c; display:inline-block; padding:6px 15px; border-radius:20px; animation: pulse 3s infinite ease-in-out; }
     @keyframes pulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.1);background-color:#ff3333;} }
-
-    .school-name { margin-top:15px;font-size:0.95em;opacity:0.85;font-style:italic;animation:scrollText 20s linear infinite;white-space:nowrap;overflow:hidden;}
-    @keyframes scrollText { 0%{transform:translateX(100%);}100%{transform:translateX(-100%);} }
 
     main { max-width:900px;margin:50px auto;padding:20px; }
 
@@ -85,12 +82,33 @@
       box-shadow:0 6px 15px rgba(0,0,0,0.1);
       animation:fadeIn 0.5s ease-in-out;
     }
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);} }
 
     .result-section h3{color:#0044cc;margin-bottom:15px;}
-    .confirmation{margin-top:20px;padding:12px;border-radius:8px;background-color:#e6ffe6;color:#006600;border-left:5px solid #00b300;font-weight:500;text-align:center;}
-    .error{margin-top:15px;padding:12px;border-radius:8px;background-color:#ffe6e6;color:#cc0000;border-left:5px solid #ff1a1a;text-align:center;font-weight:500;}
+
     .sexe-icon{width:35px;vertical-align:middle;margin-left:10px;}
+
+    .confirmation{
+      margin-top:20px;
+      padding:12px;
+      border-radius:8px;
+      background-color:#e6ffe6;
+      color:#006600;
+      border-left:5px solid #00b300;
+      text-align:center;
+      font-weight:600;
+    }
+
+    .error{
+      margin-top:20px;
+      padding:12px;
+      border-radius:8px;
+      background-color:#ffe6e6;
+      color:#cc0000;
+      border-left:5px solid #ff3333;
+      text-align:center;
+      font-weight:600;
+    }
 
     .pdf-btn{
       margin-top:20px;
@@ -117,18 +135,18 @@
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo École" class="logo">
+    <img src="logo.png" class="logo" alt="Logo">
     <h1 class="nom-ecole">COMPLEXE SCOLAIRE JOSEPH BIKOKO</h1>
-    <p class="Slogan">École d'excellence – josephbikoko21@gmail.com – 066681091 / 065292598</p>
+    <p class="Slogan">École d'excellence – Contact : 066681091 / 065292598</p>
     <p class="annee">Année scolaire 2025–2026</p>
-    <div class="school-name">🎓 Portail officiel de consultation des informations scolaires – Le numérique au service de l'éducation 🎓</div>
+    <h3 class="nom-ecol">🎓PORTAIL OFFICIEL DE PUBLICATION DES RESULTATS SCOLAIRES EN LIGNE</h3>
   </header>
 
   <main>
     <section class="search-section">
-      <h2>🔍 Consulter les informations d’un élève ou d’une classe</h2>
+      <h2>🔍 Consulter les résultats d’un élève ou d’une classe</h2>
       <form id="searchForm">
-        <input type="text" id="searchInput" placeholder="Entrez le nom, le matricule ou la classe (ex: Première D2)" required>
+        <input type="text" id="searchInput" placeholder="Entrez nom, matricule ou classe (ex: Première D2)" required>
         <button type="submit">Rechercher</button>
       </form>
     </section>
@@ -137,962 +155,149 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 <strong>Complexe Scolaire Joseph BIKOKO</strong> – Tous droits réservés.</p>
-    <p>Conçu par M. Bonheur BINSANGOU, Expert des systèmes d'information, Réseaux et Télécommunications</p>
+    <p>&copy; 2025 Complexe Scolaire Joseph Bikoko – Tous droits réservés.</p>
+    <p>Conçu par M. Bonheur BINSANGOU, Expert systèmes d'information, Réseaux et Télécommunications</p>
   </footer>
 
   <script>
-    const eleves = [
-      { matricule: "JB240036", nom: "ABA GANGOUE", prenom: "ALBERTO SM", sexe: "M", classe: "Première D2", dateNaissance: "12 mars 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250620", nom: "ANDZIA", prenom: "Gestime Elmitch", sexe: "F", classe: "Première A", dateNaissance: "12 juin 2009", lieuNaissance: "Pointe-Noire", cycle: "Lycée général" },
-	{ matricule: "CSJB250677", nom: "BANTSIMA BENAZO", prenom: "Trezl Jacob", sexe: "M", classe: "Première A", dateNaissance: "2 septembre 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250029", nom: "BAVOUIDINSI MAKAYA", prenom: "Nixieu Gesca", sexe: "F", classe: "Première A", dateNaissance: "3 septembre 2010", lieuNaissance: "Yamba", cycle: "Lycée général" },
-	{ matricule: "CSJB250245", nom: "BERANGA", prenom: "Claude Armand Wathan", sexe: "M", classe: "Première A", dateNaissance: "3 août 2007", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250560", nom: "BIMPOUDI", prenom: "Précieux Jardel", sexe: "M", classe: "Première A", dateNaissance: "13 août 2007", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250858", nom: "BITSINDOU", prenom: "Domnique Christ Amour", sexe: "M", classe: "Première A", dateNaissance: "17 septembre 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250067", nom: "DIAMOUANGANA", prenom: "Andrea Theresia", sexe: "F", classe: "Première A", dateNaissance: "6 novembre 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250538", nom: "ELENGA", prenom: "Nauge Patriciaia Sephora", sexe: "F", classe: "Première A", dateNaissance: "29 décembre 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250030", nom: "GOLATSIE", prenom: "Francia Ketia", sexe: "F", classe: "Première A", dateNaissance: "1 janvier 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250853", nom: "JONAS", prenom: "Zxel Mignon Dieu-Veil", sexe: "M", classe: "Première A", dateNaissance: "18 juillet 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250273", nom: "LECKIBY", prenom: "Deissia Firmina", sexe: "F", classe: "Première A", dateNaissance: "30 juillet 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250028", nom: "MASSENET MALLES", prenom: "Danielle", sexe: "F", classe: "Première A", dateNaissance: "29 septembre 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250219", nom: "MASSOULOUKA", prenom: "Muriella Daniells Lavney", sexe: "F", classe: "Première A", dateNaissance: "30 août 2007", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250855", nom: "MAVOUNGOU", prenom: "Joyce", sexe: "F", classe: "Première A", dateNaissance: "22 mars 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250531", nom: "MAYANGA", prenom: "Johana Douce Eunice", sexe: "F", classe: "Première A", dateNaissance: "5 mars 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250307", nom: "MAYILA", prenom: "Abigaïl Grâcia Churtis", sexe: "F", classe: "Première A", dateNaissance: "16 juillet 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250477", nom: "MAYIMA LOUSSEKO", prenom: "Telchy Chérina", sexe: "F", classe: "Première A", dateNaissance: "30 avril 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB251003", nom: "MIACKA", prenom: "Carmélia Joëlle", sexe: "F", classe: "Première A", dateNaissance: "5 novembre 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250636", nom: "MIYEKE", prenom: "Urdavie Bienheureuse", sexe: "F", classe: "Première A", dateNaissance: "15 avril 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250879", nom: "NDZON NGALOU", prenom: "Boriane Isa", sexe: "F", classe: "Première A", dateNaissance: "1 janvier 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250852", nom: "NGANGA", prenom: "Enockcia", sexe: "F", classe: "Première A", dateNaissance: "1 janvier 2010", lieuNaissance: "Pointe-Noire", cycle: "Lycée général" },
-	{ matricule: "CSJB250828", nom: "NKELANI", prenom: "Dieuvie", sexe: "M", classe: "Première A", dateNaissance: "4 août 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250985", nom: "TCHIVONGO NIAZAIRE", prenom: "Princy", sexe: "M", classe: "Première A", dateNaissance: "6 juin 2009", lieuNaissance: "Pointe-Noire", cycle: "Lycée général" },
-	{ matricule: "CSJB250847", nom: "ANDZOUANA-PIONE", prenom: "Brenda-Clive", sexe: "F", classe: "Première C", dateNaissance: "15 mai 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250290", nom: "BAKOUMA", prenom: "Fred Anthony", sexe: "M", classe: "Première C", dateNaissance: "23 août 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250337", nom: "BIDZIMOU", prenom: "Reine Destie Axelle", sexe: "F", classe: "Première C", dateNaissance: "24 juin 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250236", nom: "NGAMBI", prenom: "Pinelle", sexe: "F", classe: "Première C", dateNaissance: "26 octobre 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250824", nom: "NKODIA", prenom: "Lovdie Astimee Albercia", sexe: "F", classe: "Première C", dateNaissance: "11 mai 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250877", nom: "NKODIA", prenom: "Lovdie Estimée", sexe: "F", classe: "Première C", dateNaissance: "11 mai 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250156", nom: "NTSALAS", prenom: "Enock Samine", sexe: "M", classe: "Première C", dateNaissance: "25 avril 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250387", nom: "NZOUTANI", prenom: "Allegra Loïce Marvine", sexe: "F", classe: "Première C", dateNaissance: "2 mai 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250072", nom: "OPENDA", prenom: "Ketsia Afycia", sexe: "F", classe: "Première C", dateNaissance: "22 février 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250286", nom: "SENGA", prenom: "Michelle Armelle Victoire", sexe: "F", classe: "Première C", dateNaissance: "28 mai 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250571", nom: "ANTSIRIMOUE", prenom: "Ibrahim", sexe: "M", classe: "Première D1", dateNaissance: "1 janvier 2007", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250958", nom: "ASSAKO", prenom: "Christina Klain Andercia", sexe: "F", classe: "Première D1", dateNaissance: "23 juillet 2009", lieuNaissance: "Pointe-Noire", cycle: "Lycée général" },
-	{ matricule: "CSJB250075", nom: "BOKILO", prenom: "Fleury Karl Pavel", sexe: "M", classe: "Première D1", dateNaissance: "27 avril 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250093", nom: "DIALLO", prenom: "Saidou Bella", sexe: "M", classe: "Première D1", dateNaissance: "10 février 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250360", nom: "DIMY MONDZONGO", prenom: "Manuella Dorah", sexe: "F", classe: "Première D1", dateNaissance: "16 mars 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250663", nom: "EMMANY KINZOLA", prenom: "Divine", sexe: "F", classe: "Première D1", dateNaissance: "10 juillet 2020", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250097", nom: "KASSAMBET", prenom: "Clevichy Gallo", sexe: "M", classe: "Première D1", dateNaissance: "3 mars 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250682", nom: "MAFOULE", prenom: "Ben Hael Blesson", sexe: "M", classe: "Première D1", dateNaissance: "20 mai 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250363", nom: "MBALOU", prenom: "Egina", sexe: "F", classe: "Première D1", dateNaissance: "28 mai 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250674", nom: "MIASSOUEKAMA", prenom: "Alice", sexe: "F", classe: "Première D1", dateNaissance: "15 avril 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250599", nom: "MONAMPASSI", prenom: "Fernand Anthony Celeste", sexe: "F", classe: "Première D1", dateNaissance: "8 juillet 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250154", nom: "MOUKOKO NTSOKO", prenom: "Edna Luttera", sexe: "F", classe: "Première D1", dateNaissance: "29 août 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250059", nom: "MOUTEMBESSA", prenom: "Exaucé Erol", sexe: "M", classe: "Première D1", dateNaissance: "1 janvier 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250509", nom: "MVOUSSA", prenom: "Messie Ludrielle", sexe: "F", classe: "Première D1", dateNaissance: "15 août 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250581", nom: "NGANGA", prenom: "Cherubin David", sexe: "M", classe: "Première D1", dateNaissance: "1 janvier 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250320", nom: "OKA", prenom: "Kevine Ruben", sexe: "M", classe: "Première D1", dateNaissance: "1 janvier 2008", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250512", nom: "OMVOUNDZE", prenom: "Odette", sexe: "F", classe: "Première D1", dateNaissance: "24 octobre 2010", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250056", nom: "TCHIMBAKALA", prenom: "Blanche Juvrault", sexe: "F", classe: "Première D1", dateNaissance: "1 janvier 2009", lieuNaissance: "Brazzaville", cycle: "Lycée général" },
-	{ matricule: "CSJB250060", nom: "ATIGA", prenom: "Amanda", sexe: "F", classe: "Première G2", dateNaissance: "19 avril 2005", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250610", nom: "BALOKI OKOKO", prenom: "Prince Cervcher", sexe: "M", classe: "Première G2", dateNaissance: "5 juillet 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250255", nom: "BANTSIMBA", prenom: "Sorel Christian", sexe: "F", classe: "Première G2", dateNaissance: "21 mai 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250835", nom: "BANZOUMOUNA", prenom: "Bénicia Laura", sexe: "F", classe: "Première G2", dateNaissance: "25 septembre 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250878", nom: "BOLONDO", prenom: "Serge Prince", sexe: "M", classe: "Première G2", dateNaissance: "11 décembre 2007", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250368", nom: "BOUKAKA NSAYI", prenom: "Paule Rihanna", sexe: "F", classe: "Première G2", dateNaissance: "17 juin 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250836", nom: "DOUMA WOKA", prenom: "Marie Agnès", sexe: "F", classe: "Première G2", dateNaissance: "25 mai 2007", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250392", nom: "ITOUA OBAMBI", prenom: "Dieuver Gedelor", sexe: "M", classe: "Première G2", dateNaissance: "18 septembre 2006", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250366", nom: "KALOBO TSALA", prenom: "Benejah", sexe: "M", classe: "Première G2", dateNaissance: "18 février 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250234", nom: "KIYINDOU", prenom: "Perside Blandeline", sexe: "F", classe: "Première G2", dateNaissance: "20 août 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250364", nom: "KOLI", prenom: "Beni Petit Junior", sexe: "M", classe: "Première G2", dateNaissance: "16 juin 2009", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250169", nom: "LOUZOLO", prenom: "Daverna Loricia", sexe: "F", classe: "Première G2", dateNaissance: "7 août 2009", lieuNaissance: "Pointe-Noire", cycle: "Lycée technique" },
-	{ matricule: "CSJB250265", nom: "MAFOUTA", prenom: "Abigaellle Emmanuelle Prestige", sexe: "F", classe: "Première G2", dateNaissance: "20 novembre 2009", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250685", nom: "MAKOUALA GALOUD", prenom: "Elena Clem", sexe: "F", classe: "Première G2", dateNaissance: "21 novembre 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250467", nom: "MALONDA SANGUI BAQUISSIIsby", prenom: "Izara", sexe: "F", classe: "Première G2", dateNaissance: "19 janvier 2009", lieuNaissance: "Pointe-Noire", cycle: "Lycée technique" },
-	{ matricule: "CSJB250061", nom: "MALONGA BIKOUTA", prenom: "Cherveni Tinelia", sexe: "F", classe: "Première G2", dateNaissance: "14 mai 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250692", nom: "MANTSONI MAYELA", prenom: "Annaelle Aldi", sexe: "F", classe: "Première G2", dateNaissance: "23 juin 2007", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250998", nom: "MATONDO", prenom: "Bulcia Deliena Angelika", sexe: "F", classe: "Première G2", dateNaissance: "3 avril 2009", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250418", nom: "MATONDO", prenom: "Jean Martiniquese Rooney", sexe: "M", classe: "Première G2", dateNaissance: "30 avril 2009", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250702", nom: "MBAMA", prenom: "Hervelyne", sexe: "F", classe: "Première G2", dateNaissance: "10 novembre 2006", lieuNaissance: "Pointe-Noire", cycle: "Lycée technique" },
-	{ matricule: "CSJB250997", nom: "MBOUNZOU", prenom: "Benicia Cecilia", sexe: "F", classe: "Première G2", dateNaissance: "24 septembre 2009", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250063", nom: "MIYEKET MAMBOU", prenom: "Danielle Fleur Didelvie", sexe: "F", classe: "Première G2", dateNaissance: "19 janvier 2010", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB251000", nom: "MOKOLINGUINIA", prenom: "Grâce Nathalie", sexe: "F", classe: "Première G2", dateNaissance: "20 mars 2007", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250301", nom: "MOUKOUATA", prenom: "Promis Don Precieux", sexe: "M", classe: "Première G2", dateNaissance: "24 octobre 2009", lieuNaissance: "Kinshasa", cycle: "Lycée technique" },
-	{ matricule: "CSJB250984", nom: "NDZIENGUE", prenom: "Martiavie", sexe: "F", classe: "Première G2", dateNaissance: "26 août 2009", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250507", nom: "NGAMPE MIANGUIE", prenom: "Philippe", sexe: "M", classe: "Première G2", dateNaissance: "11 février 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250311", nom: "NGOMA MATOUMONA", prenom: "Ariel", sexe: "M", classe: "Première G2", dateNaissance: "22 juin 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250426", nom: "NGOUOBAH MOTOLO", prenom: "Benerva", sexe: "F", classe: "Première G2", dateNaissance: "4 juin 2009", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250986", nom: "NGUEFIRI OMPORO", prenom: "Moïse Shi-Sena", sexe: "M", classe: "Première G2", dateNaissance: "3 février 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB250103", nom: "NKIHOUMOUNA KITOKO", prenom: "Louange Adolcia", sexe: "F", classe: "Première G2", dateNaissance: "7 juillet 2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB251020", nom: "NTSIKA", prenom: "Stécy Gallia Urielle", sexe: "F", classe: "Première G2", dateNaissance: "20/07/2008", lieuNaissance: "Brazzaville", cycle: "Lycée technique" },
-	{ matricule: "CSJB251001", nom: "OBONGO", prenom: "Grace Amed Amalfi", sexe: "M", classe: "Première G2", dateNaissance: "22/06/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250697", nom: "OKGNA", prenom: "Elie Junior", sexe: "M", classe: "Première G2", dateNaissance: "09/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250031", nom: "OKOBO EYILA", prenom: "Gloire Murielle", sexe: "F", classe: "Première G2", dateNaissance: "29/09/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250091", nom: "OSSEBI KASSEKAME", prenom: "Abigael Prestige", sexe: "F", classe: "Première G2", dateNaissance: "25/05/2010", lieuNaissance: "BRAZZVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250963", nom: "SEMBA", prenom: "Grace Chady", sexe: "M", classe: "Première G2", dateNaissance: "18/03/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250630", nom: "SOLOKA", prenom: "Deslie", sexe: "F", classe: "Première G2", dateNaissance: "27/07/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250698", nom: "TSIETA", prenom: "Julcie Darsène", sexe: "F", classe: "Première G2", dateNaissance: "11/10/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250175", nom: "YELEBI GOBAT", prenom: "Josué Bienheureux", sexe: "M", classe: "Première G2", dateNaissance: "24/04/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250074", nom: "YITOUKOULOU", prenom: "Gloirdie Margherite", sexe: "F", classe: "Première G2", dateNaissance: "10/02/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-	{ matricule: "CSJB250995", nom: "ANDZALA ENANI", prenom: "Mariana Océane", sexe: "F", classe: "Première D2", dateNaissance: "26 octobre 2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250949", nom: "ANGOYA", prenom: "Daniel Owen", sexe: "M", classe: "Première D2", dateNaissance: "12/09/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250594", nom: "BOBENDA BOUYA", prenom: "Marissa Eunice", sexe: "F", classe: "Première D2", dateNaissance: "22/04/2009", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée général" },
-	{ matricule: "CSJB250139", nom: "BOTOKA MOUTONDO", prenom: "Joyece Acassia", sexe: "F", classe: "Première D2", dateNaissance: "10/05/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250073", nom: "DIMINAT YANDOUMA", prenom: "Serges Hilfred", sexe: "M", classe: "Première D2", dateNaissance: "24/02/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250224", nom: "ELE RAY", prenom: "Cyr Andrea Carmen", sexe: "F", classe: "Première D2", dateNaissance: "09/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250502", nom: "ENGOBO", prenom: "Andrea Christia Guymilia", sexe: "F", classe: "Première D2", dateNaissance: "26/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250952", nom: "IBATA", prenom: "Nathan Bonheur", sexe: "M", classe: "Première D2", dateNaissance: "04/05/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250952", nom: "KOMBA", prenom: "Horsaint Gersy", sexe: "M", classe: "Première D2", dateNaissance: "22/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250071", nom: "KOMBO KENA", prenom: "Bonheur Mavie", sexe: "F", classe: "Première D2", dateNaissance: "01/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250298", nom: "KOUBATIKA", prenom: "Joanna Angelia Perle", sexe: "F", classe: "Première D2", dateNaissance: "08/05/2007", lieuNaissance: "BRAZZAVILE", cycle: "Lycée général" },
-	{ matricule: "CSJB250358", nom: "LOKEHOURINA", prenom: "Marité", sexe: "F", classe: "Première D2", dateNaissance: "28/07/2009", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250679", nom: "LOUBA", prenom: "Marise Grace", sexe: "F", classe: "Première D2", dateNaissance: "22/07/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250476", nom: "MABAIALA NZOUSSI", prenom: "Geed Hardy", sexe: "M", classe: "Première D2", dateNaissance: "19/10/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250469", nom: "MAKANGOU LOULENDO", prenom: "Enoch", sexe: "M", classe: "Première D2", dateNaissance: "05/08/2009", lieuNaissance: "AFRIQUE DU SUD", cycle: "Lycée général" },
-	{ matricule: "CSJB250713", nom: "MAKOUANGOU", prenom: "Portelha Eloïm", sexe: "M", classe: "Première D2", dateNaissance: "01/01/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250430", nom: "MALONGA", prenom: "Oldry Achley", sexe: "F", classe: "Première D2", dateNaissance: "24/10/2007", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250158", nom: "MALONGA", prenom: "Sephora Vici", sexe: "F", classe: "Première D2", dateNaissance: "03/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250707", nom: "MANGOMO", prenom: "Russel Précieux Altesse De Régis", sexe: "M", classe: "Première D2", dateNaissance: "14/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250629", nom: "MASSALA", prenom: "Mignon Bienvenu", sexe: "M", classe: "Première D2", dateNaissance: "06/02/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250058", nom: "MAVOUNGOU KOUKEB", prenom: "Louise Hochea", sexe: "F", classe: "Première D2", dateNaissance: "15/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB251023", nom: "MAVOUNGOU NZOUZI", prenom: "Geed Chardy", sexe: "M", classe: "Première D2", dateNaissance: "19/10/2007", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250503", nom: "MAVOUNGOU TSIMBA", prenom: "Geed Charden", sexe: "M", classe: "Première D2", dateNaissance: "19/10/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250410", nom: "MBEMBA", prenom: "Ketsia Promesse", sexe: "F", classe: "Première D2", dateNaissance: "30/03/2009", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250095", nom: "MBERI", prenom: "Charité Divine", sexe: "F", classe: "Première D2", dateNaissance: "27/12/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250591", nom: "MBONGO TEMOIGNAGE", prenom: "Béni-Christ", sexe: "M", classe: "Première D2", dateNaissance: "10/12/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250359", nom: "MINOUKA", prenom: "Kerene Christ-Vie", sexe: "F", classe: "Première D2", dateNaissance: "05/10/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250078", nom: "MOUANDA", prenom: "Jordy Exaucé", sexe: "M", classe: "Première D2", dateNaissance: "19/06/2008", lieuNaissance: "LOUDIMA", cycle: "Lycée général" },
-	{ matricule: "CSJB250451", nom: "NDZI POSSOKABA", prenom: "Joseph Précieux", sexe: "M", classe: "Première D2", dateNaissance: "13/08/2008", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250665", nom: "NGOMA NGOYO", prenom: "Unazarel", sexe: "M", classe: "Première D2", dateNaissance: "03/01/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250259", nom: "NGUIE", prenom: "Minou Darelle", sexe: "F", classe: "Première D2", dateNaissance: "27/12/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250345", nom: "OKILI", prenom: "Jelfran Roddi Francis", sexe: "M", classe: "Première D2", dateNaissance: "16/04/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250148", nom: "ONGAGNA-INGOBA", prenom: "Denicia Reine", sexe: "F", classe: "Première D2", dateNaissance: "02/05/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250660", nom: "TRANKON", prenom: "Anthony Martinez", sexe: "F", classe: "Première D2", dateNaissance: "28/09/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250876", nom: "AMADOU NDIAYE", prenom: "Chadraque", sexe: "M", classe: "Seconde A", dateNaissance: "03/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250048", nom: "ANDZOUANA", prenom: "Amanda", sexe: "F", classe: "Seconde A", dateNaissance: "22/02/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250121", nom: "ASSIANNA", prenom: "Dercia Noria", sexe: "F", classe: "Seconde A", dateNaissance: "20/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250443", nom: "BAKALA", prenom: "Dominique Allegra", sexe: "F", classe: "Seconde A", dateNaissance: "27/11/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250529", nom: "BATANGOUNA", prenom: "Archange Bertino", sexe: "M", classe: "Seconde A", dateNaissance: "09/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250438", nom: "BIALOUMOUENI", prenom: "Sainte Lina", sexe: "F", classe: "Seconde A", dateNaissance: "02/09/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250153", nom: "BIGANI BANZOUZI", prenom: "Claude Muler", sexe: "M", classe: "Seconde A", dateNaissance: "22/05/2009", lieuNaissance: "BRAZZA", cycle: "Lycée général" },
-	{ matricule: "CSJB250605", nom: "COULIBALY", prenom: "Senabou Alimata", sexe: "F", classe: "Seconde A", dateNaissance: "05/06/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250842", nom: "DIAMBOTE", prenom: "Bertin Junior", sexe: "M", classe: "Seconde A", dateNaissance: "14/04/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250251", nom: "DZAMA CETIKOUABO", prenom: "Reine Emile Richesse", sexe: "F", classe: "Seconde A", dateNaissance: "15/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250340", nom: "EKANGUI APENA", prenom: "Béyonce Esther", sexe: "F", classe: "Seconde A", dateNaissance: "11/02/2010", lieuNaissance: "YAMBA MBETI", cycle: "Lycée général" },
-	{ matricule: "CSJB250241", nom: "ELENGA ENGANDZA", prenom: "Angelicka Prudence", sexe: "F", classe: "Seconde A", dateNaissance: "15/04/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250330", nom: "ESSOBELA", prenom: "Junior Thiery Pascal", sexe: "M", classe: "Seconde A", dateNaissance: "01/07/2010", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250421", nom: "ITOUA MBOUALA", prenom: "Rovie Sagesse", sexe: "F", classe: "Seconde A", dateNaissance: "21/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250373", nom: "KALIE KOSSO", prenom: "Précieuse", sexe: "F", classe: "Seconde A", dateNaissance: "14/06/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250606", nom: "KESSI", prenom: "Megan Ihonde", sexe: "F", classe: "Seconde A", dateNaissance: "02/04/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250114", nom: "LOUMELO", prenom: "Deborah Emmanuelle", sexe: "F", classe: "Seconde A", dateNaissance: "23/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250433", nom: "MABIALA KITSOUKOU", prenom: "Jurol Grace", sexe: "M", classe: "Seconde A", dateNaissance: "30/04/2010", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250046", nom: "MAKOSSO", prenom: "Benicia", sexe: "F", classe: "Seconde A", dateNaissance: "22/02/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250837", nom: "MATOUMONA", prenom: "Shekinah - Gloire", sexe: "F", classe: "Seconde A", dateNaissance: "05/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250452", nom: "MAYINGUIDI NGOMAS", prenom: "Arone Céleste", sexe: "M", classe: "Seconde A", dateNaissance: "19/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250514", nom: "MOKO ITOUA BANDZI", prenom: "Louisange", sexe: "M", classe: "Seconde A", dateNaissance: "23/02/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250370", nom: "MOUDIONGUI KAMBA", prenom: "Tino", sexe: "M", classe: "Seconde A", dateNaissance: "27/04/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250354", nom: "MPASSI TANGUI", prenom: "Fratini Mercy", sexe: "M", classe: "Seconde A", dateNaissance: "17/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250977", nom: "NAKOUYIDIKILA", prenom: "Broldi Kevine", sexe: "M", classe: "Seconde A", dateNaissance: "21/08/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250969", nom: "NDZON", prenom: "Kevine", sexe: "M", classe: "Seconde A", dateNaissance: "26/11/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250212", nom: "NGALIFOUROU", prenom: "Samuela Dorcace", sexe: "F", classe: "Seconde A", dateNaissance: "19/06/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250112", nom: "NGATALI", prenom: "Richy Princesse", sexe: "F", classe: "Seconde A", dateNaissance: "20/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250051", nom: "OBAMBI ASSONI", prenom: "Shaloom Espoir", sexe: "M", classe: "Seconde A", dateNaissance: "06/06/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250222", nom: "OKO MANGOU", prenom: "Kristy Orly", sexe: "F", classe: "Seconde A", dateNaissance: "16/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250195", nom: "SAMBA", prenom: "Grace Bercila Mayelis", sexe: "M", classe: "Seconde A", dateNaissance: "13/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250292", nom: "SAMBA NDEMBO", prenom: "Herda", sexe: "F", classe: "Seconde A", dateNaissance: "16/04/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250684", nom: "SOUKA BIKOUADI", prenom: "VICTORIA Fulda", sexe: "F", classe: "Seconde A", dateNaissance: "01/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250124", nom: "ALEMBY", prenom: "Kristiana Sammuella", sexe: "F", classe: "Seconde C1", dateNaissance: "01/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250617", nom: "BIKOUMOU SAMBA", prenom: "Marcel Claudin", sexe: "M", classe: "Seconde C1", dateNaissance: "26/10/2009", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250187", nom: "BITYODI BOUKONZO", prenom: "Laurna Geordie", sexe: "F", classe: "Seconde C1", dateNaissance: "01/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB251027", nom: "BIYODI BOUKONZO", prenom: "Laurnna Geordie", sexe: "F", classe: "Seconde C1", dateNaissance: "01/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250262", nom: "DIMI-NGO", prenom: "Prince Junior", sexe: "M", classe: "Seconde C1", dateNaissance: "30/09/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250214", nom: "ELE", prenom: "Ray Hannan", sexe: "M", classe: "Seconde C1", dateNaissance: "11/04/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250409", nom: "ETOU OBIONO", prenom: "Laspré", sexe: "F", classe: "Seconde C1", dateNaissance: "24/01/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250242", nom: "ITOUA OBVIE", prenom: "Dixirey Savoir", sexe: "M", classe: "Seconde C1", dateNaissance: "24/06/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250064", nom: "IWIMANA", prenom: "Divine", sexe: "F", classe: "Seconde C1", dateNaissance: "26/12/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-	{ matricule: "CSJB250116", nom: "KIMANI-LOUISSE", prenom: "Averti Supreme", sexe: "M", classe: "Seconde C1", dateNaissance: "16/04/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250496", nom: "LEBANITOU EZO", prenom: "Juvenal Eloheka", sexe: "M", classe: "Seconde C1", dateNaissance: "21/10/2010", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250196", nom: "LOCKO", prenom: "Cyr Emmanuel Nathan", sexe: "M", classe: "Seconde C1", dateNaissance: "03/02/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250193", nom: "MABIALA KITSOUKOU", prenom: "Cley Domnicke", sexe: "F", classe: "Seconde C1", dateNaissance: "15/05/2009", lieuNaissance: "DOLISIE", cycle: "Lycée général" },
-{ matricule: "CSJB250718", nom: "MAKANGA", prenom: "Elisabette Grâce", sexe: "F", classe: "Seconde C1", dateNaissance: "16/04/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250832", nom: "MALANDA", prenom: "Rufin Regis Dorian", sexe: "M", classe: "Seconde C1", dateNaissance: "02/05/2010", lieuNaissance: "BRAZZAVILE", cycle: "Lycée général" },
-{ matricule: "CSJB250657", nom: "MAMPEME", prenom: "Jean Michel Josué", sexe: "M", classe: "Seconde C1", dateNaissance: "04/05/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250686", nom: "MANKESSI", prenom: "Chaufra Isaac Wilfrid", sexe: "M", classe: "Seconde C1", dateNaissance: "20/01/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250651", nom: "MASSAMOUNA", prenom: "Bien-Heureux", sexe: "M", classe: "Seconde C1", dateNaissance: "21/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250115", nom: "MBERY MIYALOU", prenom: "Daniel Stephen Michel", sexe: "M", classe: "Seconde C1", dateNaissance: "24/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250391", nom: "MBOUALA", prenom: "Laurencia Keren", sexe: "F", classe: "Seconde C1", dateNaissance: "19/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250272", nom: "MOKONO", prenom: "Rolvie Emmanuel Ronual", sexe: "M", classe: "Seconde C1", dateNaissance: "01/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250598", nom: "MOUANDZIBI", prenom: "Gloire Daniella", sexe: "F", classe: "Seconde C1", dateNaissance: "26/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250239", nom: "MOUL", prenom: "Fira Judith Penchard", sexe: "F", classe: "Seconde C1", dateNaissance: "30/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250501", nom: "MOUTAKALA LOUSE", prenom: "Désiré Richard", sexe: "M", classe: "Seconde C1", dateNaissance: "11/11/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250308", nom: "NGOMA DEPANDZOU", prenom: "Fred", sexe: "M", classe: "Seconde C1", dateNaissance: "04/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB251026", nom: "NGOULOU", prenom: "Melchisedek Eric", sexe: "M", classe: "Seconde C1", dateNaissance: "13/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250229", nom: "NZABA", prenom: "Christ Habib", sexe: "M", classe: "Seconde C1", dateNaissance: "07/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250708", nom: "OBAMI", prenom: "Celia Hermelie Riche", sexe: "F", classe: "Seconde C1", dateNaissance: "22/02/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250118", nom: "ONDZANGA", prenom: "Christinie Yohanane", sexe: "F", classe: "Seconde C1", dateNaissance: "01/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB251004", nom: "PENAPITRA BOUEKASSA", prenom: "Divine Christelle De Marciale", sexe: "F", classe: "Seconde C1", dateNaissance: "15/12/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250094", nom: "SAMBA", prenom: "Jean Beni Christ", sexe: "M", classe: "Seconde C1", dateNaissance: "24/02/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250457", nom: "SOBI", prenom: "Guichelda Nancy Belvina", sexe: "F", classe: "Seconde C1", dateNaissance: "30/10/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250119", nom: "ZOLA", prenom: "Tite Adorelle", sexe: "F", classe: "Seconde C1", dateNaissance: "22/06/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250122", nom: "ALEMBY", prenom: "Van Sammmuel", sexe: "M", classe: "Seconde C2", dateNaissance: "15/09/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250564", nom: "BALECKITA", prenom: "Ashley Karou Iz", sexe: "M", classe: "Seconde C2", dateNaissance: "26/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250470", nom: "BIMBI", prenom: "Nathan Junior", sexe: "M", classe: "Seconde C2", dateNaissance: "21/03/2011", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250197", nom: "DIANE SYDIKI", prenom: "Aissata", sexe: "F", classe: "Seconde C2", dateNaissance: "16/06/2008", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée général" },
-{ matricule: "CSJB250275", nom: "DISSOUSSOU", prenom: "Then Alma", sexe: "M", classe: "Seconde C2", dateNaissance: "06/04/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250544", nom: "ETAMBA", prenom: "Abigaelle Lezin Clara", sexe: "F", classe: "Seconde C2", dateNaissance: "13/07/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250971", nom: "GOUMBA MOUELENGA", prenom: "Gloria Romelda", sexe: "F", classe: "Seconde C2", dateNaissance: "29/11/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250050", nom: "KABAZEYI", prenom: "Gloire Brelda", sexe: "M", classe: "Seconde C2", dateNaissance: "26/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250198", nom: "KITOKO", prenom: "Paule Carine Nefertiti", sexe: "F", classe: "Seconde C2", dateNaissance: "02/08/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250302", nom: "KOUNGA", prenom: "Destiné Dominique", sexe: "F", classe: "Seconde C2", dateNaissance: "01/11/2010", lieuNaissance: "BRAZZAILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250626", nom: "LEWANGALA", prenom: "Laury Corrine", sexe: "F", classe: "Seconde C2", dateNaissance: "21/11/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250641", nom: "LOUTAYA MBOUKOU", prenom: "Jeansmy Osenyfer", sexe: "F", classe: "Seconde C2", dateNaissance: "21/05/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250163", nom: "MABIALA NZEDI", prenom: "Borgecie Michaëlle", sexe: "F", classe: "Seconde C2", dateNaissance: "26/10/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250223", nom: "MALONGA", prenom: "Laurant Mauriéé", sexe: "M", classe: "Seconde C2", dateNaissance: "19/07/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250213", nom: "MASSENET GYBLAIN", prenom: "David Gisdeon", sexe: "M", classe: "Seconde C2", dateNaissance: "18/11/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250866", nom: "MAYINGA", prenom: "Messie Destiné", sexe: "M", classe: "Seconde C2", dateNaissance: "18/11/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250208", nom: "MISSIE", prenom: "Richenel Boaz", sexe: "M", classe: "Seconde C2", dateNaissance: "09/09/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250216", nom: "MOUANDA", prenom: "Hattie Salem", sexe: "F", classe: "Seconde C2", dateNaissance: "12/03/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250376", nom: "MOUBE", prenom: "Aloïse Fred Danny", sexe: "M", classe: "Seconde C2", dateNaissance: "10/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250613", nom: "NGATSIBI APIBA", prenom: "Pierre Reno", sexe: "M", classe: "Seconde C2", dateNaissance: "02/09/2009", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250850", nom: "NGUIMBI", prenom: "Miché - Dieussi", sexe: "M", classe: "Seconde C2", dateNaissance: "16/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250687", nom: "NTALOULOU", prenom: "Grâce Tendresse", sexe: "F", classe: "Seconde C2", dateNaissance: "10/09/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250243", nom: "PAPA OPOSSI", prenom: "Norvège Déo-Gracia Julia", sexe: "F", classe: "Seconde C2", dateNaissance: "18/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250096", nom: "SANGARE", prenom: "Mohamed", sexe: "M", classe: "Seconde C2", dateNaissance: "23/07/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB251002", nom: "SELENGUENDE", prenom: "Christel De Martial", sexe: "M", classe: "Seconde C2", dateNaissance: "09/08/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250575", nom: "SOMBO", prenom: "Auguste", sexe: "M", classe: "Seconde C2", dateNaissance: "06/09/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250843", nom: "TUSEWU MBUNGÏDI", prenom: "Emalda Abigaël", sexe: "F", classe: "Seconde C2", dateNaissance: "05/07/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250475", nom: "AKOUNDZÉ", prenom: "Rayann Ibrahim", sexe: "M", classe: "Seconde G", dateNaissance: "12/06/2010", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250316", nom: "BAKANA", prenom: "Djenifer Lorencia", sexe: "F", classe: "Seconde G", dateNaissance: "26/05/2007", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250220", nom: "BIYOUDI", prenom: "Keyna Annabelle", sexe: "F", classe: "Seconde G", dateNaissance: "08/10/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250413", nom: "DEAMBA CHAMA", prenom: "La Grace Sosthene", sexe: "M", classe: "Seconde G", dateNaissance: "03/02/2009", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250481", nom: "DIATSONTSA", prenom: "Ashley Aimable", sexe: "F", classe: "Seconde G", dateNaissance: "20/05/2010", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250054", nom: "ELENGA", prenom: "Armonia Valencia", sexe: "F", classe: "Seconde G", dateNaissance: "27/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250468", nom: "GOMAT EUREKA", prenom: "Renée Marissa", sexe: "F", classe: "Seconde G", dateNaissance: "08/10/2010", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée technique" },
-{ matricule: "CSJB250356", nom: "IMBAYE", prenom: "Eurêka Zoé", sexe: "F", classe: "Seconde G", dateNaissance: "11/06/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250871", nom: "JICHIC NTABARUSHA", prenom: "Maïsha", sexe: "M", classe: "Seconde G", dateNaissance: "19/07/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250480", nom: "KIAFOUKA LOUKEMBAMIO", prenom: "Andréa Divine", sexe: "F", classe: "Seconde G", dateNaissance: "08/08/2010", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250365", nom: "KIHOUNGA MBELO", prenom: "Ketsia Precieuse", sexe: "F", classe: "Seconde G", dateNaissance: "07/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250875", nom: "KINKENI BIYENDOLO", prenom: "Christ Beni Athalia", sexe: "F", classe: "Seconde G", dateNaissance: "01/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250608", nom: "KOULOMBO", prenom: "Denisia Theresia Danielle", sexe: "F", classe: "Seconde G", dateNaissance: "16/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250968", nom: "KOUMOU MALOT", prenom: "Dieu-Veil Gloir", sexe: "M", classe: "Seconde G", dateNaissance: "12/10/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250550", nom: "LENGOUALA", prenom: "Bevin Trésor", sexe: "M", classe: "Seconde G", dateNaissance: "27/01/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250561", nom: "LIBAKA AJOKA", prenom: "Jérémie AlhanePhadieli", sexe: "M", classe: "Seconde G", dateNaissance: "02/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250970", nom: "MADZEYA HARRIS", prenom: "Oulianov Keitteiel", sexe: "M", classe: "Seconde G", dateNaissance: "06/04/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250547", nom: "MAKOSSO TCHILONGO", prenom: "Marie Jacquie Lauriana", sexe: "F", classe: "Seconde G", dateNaissance: "14/06/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250867", nom: "MATOKOYO", prenom: "Dorcas Awa", sexe: "F", classe: "Seconde G", dateNaissance: "14/10/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250369", nom: "MBEMBA MOUSSAHOUA", prenom: "Grâce Annaëlle", sexe: "F", classe: "Seconde G", dateNaissance: "15/10/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250190", nom: "MBOMA", prenom: "Helena Vanessa", sexe: "F", classe: "Seconde G", dateNaissance: "23/11/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250237", nom: "MBONGO", prenom: "Dieumerci Petit Serge", sexe: "M", classe: "Seconde G", dateNaissance: "05/01/2005", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250130", nom: "MBOUNGOU-KOULA", prenom: "Leéonce Theresa", sexe: "F", classe: "Seconde G", dateNaissance: "08/06/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250543", nom: "MEPOH EKPA", prenom: "Ryan Ma-Gloire", sexe: "M", classe: "Seconde G", dateNaissance: "02/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250332", nom: "MISURI LIKIBI", prenom: "Claude Ticiana", sexe: "F", classe: "Seconde G", dateNaissance: "07/03/2011", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée technique" },
-{ matricule: "CSJB250638", nom: "MOSSONGO", prenom: "Chancella Bienheureuse", sexe: "F", classe: "Seconde G", dateNaissance: "27/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250098", nom: "MOUNZONGO MOUNGANDI", prenom: "Jannel", sexe: "F", classe: "Seconde G", dateNaissance: "11/03/2010", lieuNaissance: "BRAZZVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250535", nom: "MPASSI TANGUI", prenom: "Esther Ronelda", sexe: "F", classe: "Seconde G", dateNaissance: "20/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250436", nom: "NGALEBAY LEMOMI", prenom: "Lilya Aurelia", sexe: "F", classe: "Seconde G", dateNaissance: "25/09/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250595", nom: "NGOKA", prenom: "Francia Angela", sexe: "F", classe: "Seconde G", dateNaissance: "06/09/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250274", nom: "NGOUABIEBOMBOTSO", prenom: "Lamberto Richy Winner", sexe: "M", classe: "Seconde G", dateNaissance: "19/10/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250052", nom: "NGOUABI EKOBELE", prenom: "Fils Brave", sexe: "M", classe: "Seconde G", dateNaissance: "01/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250439", nom: "NIANGAS", prenom: "Sephora Jeanne", sexe: "F", classe: "Seconde G", dateNaissance: "14/10/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250351", nom: "NZINGA MIMBA", prenom: "Mariam Yacine", sexe: "F", classe: "Seconde G", dateNaissance: "21/07/2010", lieuNaissance: "LIBREVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250204", nom: "OKANA", prenom: "Benissa Nadou", sexe: "F", classe: "Seconde G", dateNaissance: "16/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250323", nom: "SIKI", prenom: "Shekina Glasvie", sexe: "F", classe: "Seconde G", dateNaissance: "14/11/2008", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250403", nom: "TSIONKIRI", prenom: "Arland Isahac Gédéon", sexe: "M", classe: "Seconde G", dateNaissance: "05/04/2000", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250131", nom: "TSOUMOU", prenom: "Andrade Pitt-Rolly", sexe: "M", classe: "Seconde G", dateNaissance: "16/06/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250102", nom: "YAMBA", prenom: "Nephtalie Glory Blessi", sexe: "F", classe: "Seconde G", dateNaissance: "23/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250646", nom: "YOKA", prenom: "Alain gloire", sexe: "M", classe: "Seconde G", dateNaissance: "28/02/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250479", nom: "ZIHOUIDI", prenom: "Dieuvi Chevel Royane", sexe: "M", classe: "Seconde G", dateNaissance: "26/10/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250110", nom: "AKOUALA", prenom: "Rebecca Felicia", sexe: "F", classe: "3èmeA", dateNaissance: "13/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250555", nom: "BANTSIMBA", prenom: "Rody Nordelin", sexe: "M", classe: "3èmeA", dateNaissance: "28/05/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250081", nom: "BIMPALOU NTSMBA", prenom: "Ferdin Nathaël", sexe: "M", classe: "3èmeA", dateNaissance: "18/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250083", nom: "BIMPALOU NZOUSSI", prenom: "Ferdin Isaac", sexe: "M", classe: "3èmeA", dateNaissance: "18/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250625", nom: "BOKEROBE", prenom: "Prosperine", sexe: "F", classe: "3èmeA", dateNaissance: "28/08/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB251014", nom: "DZOUMA", prenom: "Chancy Angelia Bonheur", sexe: "F", classe: "3èmeA", dateNaissance: "13/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250276", nom: "ENGOBO AGUEÏDA", prenom: "Brenda Ceti Mavie", sexe: "F", classe: "3èmeA", dateNaissance: "12/01/2012", lieuNaissance: "BRAZZAVILE", cycle: "Collège" },
-{ matricule: "CSJB250825", nom: "ETOMBE JOYEUX", prenom: "Fortune De ursule", sexe: "F", classe: "3èmeA", dateNaissance: "27/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250471", nom: "GOMAT EUREKA", prenom: "Horence Emilie", sexe: "F", classe: "3èmeA", dateNaissance: "08/10/2010", lieuNaissance: "POINTE-NOIRE", cycle: "Collège" },
-{ matricule: "CSJB250688", nom: "IMBOULA IKEME", prenom: "Gladys Helena", sexe: "F", classe: "3èmeA", dateNaissance: "28/04/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250267", nom: "KOMBO", prenom: "Benita Lionne Vanicia", sexe: "F", classe: "3èmeA", dateNaissance: "24/03/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250140", nom: "KONGO MABIALA", prenom: "Pricia", sexe: "F", classe: "3èmeA", dateNaissance: "01/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250257", nom: "LOPES", prenom: "Archangel Jessica", sexe: "F", classe: "3èmeA", dateNaissance: "19/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250408", nom: "LOUNGOU MABELLA", prenom: "Déogracias Blanche", sexe: "F", classe: "3èmeA", dateNaissance: "12/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250215", nom: "MAHOUNGOU", prenom: "Daniel Emmanuel", sexe: "M", classe: "3èmeA", dateNaissance: "10/09/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250472", nom: "MAYOKOSSO KIAZAYAKO", prenom: "Niciz", sexe: "M", classe: "3èmeA", dateNaissance: "06/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250406", nom: "MBEMBA MOUSSAHOUA", prenom: "Nowa Destinée", sexe: "F", classe: "3èmeA", dateNaissance: "28/03/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250559", nom: "MENGUE - YANGA", prenom: "Dominique Dorcas", sexe: "F", classe: "3èmeA", dateNaissance: "09/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250045", nom: "MIATOUNDILA", prenom: "Benie", sexe: "F", classe: "3èmeA", dateNaissance: "01/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250128", nom: "MOUANDA", prenom: "Juste Reverdy", sexe: "M", classe: "3èmeA", dateNaissance: "03/08/2011", lieuNaissance: "DOLISIE", cycle: "Collège" },
-{ matricule: "CSJB250375", nom: "MOUYABI MOUKOKO", prenom: "Maria Rosaire", sexe: "F", classe: "3èmeA", dateNaissance: "04/04/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250092", nom: "MPIELEMA NGOULOU", prenom: "Heritier Ghrislain", sexe: "M", classe: "3èmeA", dateNaissance: "26/11/2014", lieuNaissance: "BRAZZVILLE", cycle: "Collège" },
-{ matricule: "CSJB250506", nom: "NDOUDI", prenom: "Primo Claude Joël", sexe: "M", classe: "3èmeA", dateNaissance: "14/06/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250563", nom: "NGAKOSSO OSSEBI", prenom: "Royal", sexe: "M", classe: "3èmeA", dateNaissance: "22/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250976", nom: "NKODIA", prenom: "Anel Antony", sexe: "M", classe: "3èmeA", dateNaissance: "20/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250145", nom: "NTAJO MALLA", prenom: "Belmiche Chloe", sexe: "F", classe: "3èmeA", dateNaissance: "05/04/2012", lieuNaissance: "POINTE-NOIRE", cycle: "Collège" },
-{ matricule: "CSJB250111", nom: "OBOUNGA", prenom: "Davy", sexe: "M", classe: "3èmeA", dateNaissance: "01/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250109", nom: "OLOUBA KOULA", prenom: "Yanne", sexe: "M", classe: "3èmeA", dateNaissance: "21/10/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250291", nom: "ONDZANGA", prenom: "Saphnath Paeneach", sexe: "F", classe: "3èmeA", dateNaissance: "01/01/2010", lieuNaissance: "BRAZZAVILE", cycle: "Collège" },
-{ matricule: "CSJB250183", nom: "OTAMBA", prenom: "Gisel Queen Orlane", sexe: "F", classe: "3èmeA", dateNaissance: "24/05/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250377", nom: "PAMBOU", prenom: "Fortune Asnath", sexe: "F", classe: "3èmeA", dateNaissance: "19/01/2011", lieuNaissance: "POINTE-NOIRE", cycle: "Collège" },
-{ matricule: "CSJB250089", nom: "TSAMBI", prenom: "Dariol Hernel", sexe: "M", classe: "3èmeA", dateNaissance: "19/10/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250279", nom: "YALA DIOP", prenom: "Victoire Celeste", sexe: "M", classe: "3èmeA", dateNaissance: "20/12/2011", lieuNaissance: "DOLISIE", cycle: "Collège" },
-{ matricule: "CSJB250076", nom: "YANDZA", prenom: "Maya", sexe: "F", classe: "3èmeA", dateNaissance: "04/12/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250135", nom: "YOKA", prenom: "Christy Marie Ella", sexe: "F", classe: "3èmeA", dateNaissance: "16/06/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250829", nom: "AMBOULOU NGALA", prenom: "Weldy Olivia", sexe: "F", classe: "3èmeB", dateNaissance: "21/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250639", nom: "BABIND EMMANUELLE", prenom: "Orvel Maïcha", sexe: "F", classe: "3èmeB", dateNaissance: "20/10/2011", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250090", nom: "BALENGA", prenom: "Exaucé Amour Herness", sexe: "M", classe: "3èmeB", dateNaissance: "17/11/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250108", nom: "BATCHI", prenom: "Best Marck-Larent", sexe: "M", classe: "3èmeB", dateNaissance: "01/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250873", nom: "BIYEKELE KOUMBA", prenom: "Sabrina", sexe: "F", classe: "3èmeB", dateNaissance: "15/06/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250566", nom: "BOTOKA-SIGLERE", prenom: "Serena", sexe: "F", classe: "3èmeB", dateNaissance: "25/10/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB251013", nom: "DIAFOUKA", prenom: "Franck Marcelin Gustave", sexe: "M", classe: "3èmeB", dateNaissance: "23/09/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250020", nom: "EBOZO'O MBA", prenom: "Ginard Dimercia", sexe: "M", classe: "3èmeB", dateNaissance: "27/03/2011", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250981", nom: "EPA", prenom: "Vincent Jekemie", sexe: "M", classe: "3èmeB", dateNaissance: "30/08/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250494", nom: "EPASSAKA NDAKI", prenom: "Max - Josué", sexe: "M", classe: "3èmeB", dateNaissance: "04/10/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250263", nom: "IBOVI", prenom: "Gessy Victoire", sexe: "F", classe: "3èmeB", dateNaissance: "24/06/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250633", nom: "IDBEMACK MAKITA", prenom: "Christian Bhiraiz", sexe: "M", classe: "3èmeB", dateNaissance: "05/04/2011", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250722", nom: "KIKOUAMA", prenom: "Maria Chrstina", sexe: "F", classe: "3èmeB", dateNaissance: "24/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250189", nom: "KOFFI LUMAYA", prenom: "Rolbi", sexe: "M", classe: "3èmeB", dateNaissance: "18/02/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250440", nom: "KONGO", prenom: "Ingride Clairette", sexe: "F", classe: "3èmeB", dateNaissance: "12/06/2011", lieuNaissance: "POINTE-NOIRE", cycle: "Collège" },
-{ matricule: "CSJB250972", nom: "KOUSSIKANA", prenom: "Sainte Adelle Prodige", sexe: "F", classe: "3èmeB", dateNaissance: "24/12/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250979", nom: "KOUTAMBANA MPANZOU", prenom: "Theresa Yoane", sexe: "F", classe: "3èmeB", dateNaissance: "18/06/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250179", nom: "LOPA", prenom: "Kayla Julia", sexe: "F", classe: "3èmeB", dateNaissance: "09/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250142", nom: "LOUBAKI", prenom: "Cheral Elias", sexe: "M", classe: "3èmeB", dateNaissance: "17/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250230", nom: "MABOUAKA", prenom: "Daniel Emmanuel", sexe: "M", classe: "3èmeB", dateNaissance: "27/07/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250874", nom: "MAHYSSAKA", prenom: "Didier Junior", sexe: "M", classe: "3èmeB", dateNaissance: "08/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250648", nom: "MAKABASSE", prenom: "Pame Blessing", sexe: "F", classe: "3èmeB", dateNaissance: "11/12/2014", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250339", nom: "MAMPOUYA MAMI", prenom: "Elda", sexe: "F", classe: "3èmeB", dateNaissance: "01/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250857", nom: "MASSAWABA-MATONDO", prenom: "Franck", sexe: "M", classe: "3èmeB", dateNaissance: "20/06/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250178", nom: "MBAKA ONGNOGUI", prenom: "Ismaël Bien-Heureuse Jonas", sexe: "F", classe: "3èmeB", dateNaissance: "16/09/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250614", nom: "MBANI", prenom: "Ephraïm Hugues Grandeur", sexe: "M", classe: "3èmeB", dateNaissance: "24/09/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250540", nom: "MBEMBE", prenom: "Eveline Christive", sexe: "F", classe: "3èmeB", dateNaissance: "12/12/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250573", nom: "MBONGO OCKORA", prenom: "Aimé Junior", sexe: "M", classe: "3èmeB", dateNaissance: "18/05/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250539", nom: "MBOUMBA NGOKABATH", prenom: "Mariana Souviendra", sexe: "F", classe: "3èmeB", dateNaissance: "10/02/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250442", nom: "MFOUTOU MBOUNGOU", prenom: "Mercilia", sexe: "F", classe: "3èmeB", dateNaissance: "26/06/2010", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250880", nom: "OBAMBI", prenom: "Colombe Nordésie", sexe: "F", classe: "3èmeB", dateNaissance: "27/09/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250327", nom: "OKIE", prenom: "Francella Clauvia", sexe: "F", classe: "3èmeB", dateNaissance: "26/02/2011", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250146", nom: "ONDONGO", prenom: "Elikia Jean Baptisite", sexe: "M", classe: "3èmeB", dateNaissance: "18/04/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250261", nom: "SAMBA", prenom: "Jadh Richesse", sexe: "M", classe: "3èmeB", dateNaissance: "11/03/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250353", nom: "VELBEL GAKIA", prenom: "Christ Confident", sexe: "M", classe: "3èmeB", dateNaissance: "25/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250696", nom: "WANDAZAMOU", prenom: "Aaron Jessy", sexe: "M", classe: "3èmeB", dateNaissance: "15/11/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250846", nom: "ZYTHA ALLONY", prenom: "Cyntia Sublime", sexe: "F", classe: "3èmeB", dateNaissance: "10/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250202", nom: "BALOKY", prenom: "Messie Cervcher", sexe: "F", classe: "4èmeA", dateNaissance: "24/08/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250405", nom: "BIMBI", prenom: "Yohan Kelli", sexe: "M", classe: "4èmeA", dateNaissance: "01/02/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250390", nom: "BOPOUMBOU", prenom: "Jean Marie Nick Junior", sexe: "M", classe: "4èmeA", dateNaissance: "22/01/2012", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250044", nom: "BOUET", prenom: "Daniel De Miché", sexe: "M", classe: "4èmeA", dateNaissance: "23/01/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250621", nom: "DIAKOUNDILA", prenom: "Hormonie Francélia", sexe: "F", classe: "4èmeA", dateNaissance: "22/05/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250637", nom: "DITA", prenom: "Marianne", sexe: "F", classe: "4èmeA", dateNaissance: "24/08/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250201", nom: "KITOKO", prenom: "Roch Michaël Bryan", sexe: "M", classe: "4èmeA", dateNaissance: "03/08/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250536", nom: "LOUAMBA", prenom: "Eugène Prévu", sexe: "M", classe: "4èmeA", dateNaissance: "10/11/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250650", nom: "LOUSSEMO", prenom: "Judicia Vanelle", sexe: "F", classe: "4èmeA", dateNaissance: "06/09/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250435", nom: "MABIKA", prenom: "Nathan", sexe: "M", classe: "4èmeA", dateNaissance: "01/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250653", nom: "MAKOUMBOUMOUNDELE", prenom: "Elda Davina", sexe: "F", classe: "4èmeA", dateNaissance: "25/04/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250425", nom: "MBEH SIAMI", prenom: "Abdou Michaël", sexe: "M", classe: "4èmeA", dateNaissance: "07/05/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250428", nom: "MIEDE", prenom: "Marie Louise", sexe: "F", classe: "4èmeA", dateNaissance: "01/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250582", nom: "NGANGA", prenom: "Gilberto Christ R", sexe: "M", classe: "4èmeA", dateNaissance: "27/11/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250282", nom: "NIANGALA MUKADI", prenom: "David Bienfaiteur", sexe: "M", classe: "4èmeA", dateNaissance: "18/03/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250285", nom: "OBOUNGA", prenom: "Nathan Dilan", sexe: "M", classe: "4èmeA", dateNaissance: "14/04/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250007", nom: "ONDONGO", prenom: "Jean Bruno Djeneffer", sexe: "M", classe: "4èmeA", dateNaissance: "04/02/2014", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250349", nom: "PASSI", prenom: "Davina Bertrhul", sexe: "F", classe: "4èmeA", dateNaissance: "03/05/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250254", nom: "ROCH", prenom: "Shaloom Loyal", sexe: "F", classe: "4èmeA", dateNaissance: "25/04/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250699", nom: "TSIETA", prenom: "Colombe Darcia", sexe: "F", classe: "4èmeA", dateNaissance: "16/07/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250453", nom: "BAHOUIDI", prenom: "Celeste", sexe: "F", classe: "4èmeB", dateNaissance: "22/05/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250678", nom: "BAZALE AMPHA", prenom: "Daniella Alicia", sexe: "F", classe: "4èmeB", dateNaissance: "02/03/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250492", nom: "BOKABE", prenom: "Reine Esther", sexe: "F", classe: "4èmeB", dateNaissance: "24/07/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250164", nom: "BOSSALI", prenom: "Ange Aude Edna", sexe: "F", classe: "4èmeB", dateNaissance: "05/02/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250456", nom: "BOULINGUI", prenom: "Kevanie Justice de Dieu", sexe: "F", classe: "4èmeB", dateNaissance: "11/10/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250144", nom: "DIAOUANSA MAKOUTA", prenom: "Noblesse Divine", sexe: "F", classe: "4èmeB", dateNaissance: "24/01/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250143", nom: "JEMBAUT", prenom: "Ethan Lucas", sexe: "M", classe: "4èmeB", dateNaissance: "09/02/2012", lieuNaissance: "BRAZZVILLE", cycle: "Collège" },
-{ matricule: "CSJB250861", nom: "LONGO", prenom: "Jessica Claudia Sarah", sexe: "F", classe: "4èmeB", dateNaissance: "25/03/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250207", nom: "LOUMOUAMOU", prenom: "Simelia", sexe: "F", classe: "4èmeB", dateNaissance: "30/04/2012", lieuNaissance: "NKAYI", cycle: "Collège" },
-{ matricule: "CSJB250287", nom: "MABAIALA BANZOUZI", prenom: "Belvy Maria Angela", sexe: "F", classe: "4èmeB", dateNaissance: "04/07/2013", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250399", nom: "MAKAYA", prenom: "Precieux", sexe: "M", classe: "4èmeB", dateNaissance: "05/07/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250271", nom: "MAYET AKIRI", prenom: "Déogracias Kimia", sexe: "F", classe: "4èmeB", dateNaissance: "17/06/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250087", nom: "MBERI", prenom: "Jovani Emmanuel", sexe: "M", classe: "4èmeB", dateNaissance: "16/07/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250991", nom: "MOUBOULOUA NKOUSSOU", prenom: "Hecta", sexe: "F", classe: "4èmeB", dateNaissance: "07/11/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250402", nom: "MOUSTAPHA", prenom: "Abdoul Djalil", sexe: "M", classe: "4èmeB", dateNaissance: "07/12/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250628", nom: "NGOUAMBA MOUKIENO", prenom: "Cael Vainquer", sexe: "M", classe: "4èmeB", dateNaissance: "01/12/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250357", nom: "NZITOUKOULOU MILANDA", prenom: "Pierrot Excellent", sexe: "M", classe: "4èmeB", dateNaissance: "22/02/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250592", nom: "ONANGHAS ONDAILLE", prenom: "Emmanuel Joyce", sexe: "M", classe: "4èmeB", dateNaissance: "05/08/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250004", nom: "OTOUA", prenom: "Bertina", sexe: "F", classe: "4èmeB", dateNaissance: "01/01/2012", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250859", nom: "PELLA", prenom: "Marinelle Garcia", sexe: "F", classe: "4èmeB", dateNaissance: "11/07/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250673", nom: "TCHINDILA MAY", prenom: "Messi Stonard", sexe: "M", classe: "4èmeB", dateNaissance: "19/03/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250447", nom: "TSIKA KINDZI", prenom: "Don de Dieu", sexe: "M", classe: "4èmeB", dateNaissance: "11/03/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250584", nom: "AMPION", prenom: "Laurette Carlina", sexe: "F", classe: "5èmeA", dateNaissance: "25/05/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250450", nom: "BAHOUIDI", prenom: "Curtis Willfride", sexe: "M", classe: "5èmeA", dateNaissance: "26/08/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250200", nom: "DIBAKALA", prenom: "Kerene", sexe: "M", classe: "5èmeA", dateNaissance: "09/02/2011", lieuNaissance: "DOLISIE", cycle: "Collège" },
-{ matricule: "CSJB250235", nom: "EKOTSHI", prenom: "Judithia Bouna Yana", sexe: "F", classe: "5èmeA", dateNaissance: "19/02/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250983", nom: "EPA", prenom: "Manassé Vincent", sexe: "M", classe: "5èmeA", dateNaissance: "12/08/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250680", nom: "KIBA", prenom: "Anthony Divid", sexe: "M", classe: "5èmeA", dateNaissance: "22/07/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250486", nom: "KIHOULOU MALANDA", prenom: "Mignon", sexe: "M", classe: "5èmeA", dateNaissance: "15/02/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250841", nom: "LOUTONADIO LOTI", prenom: "Lionnelle Iris", sexe: "F", classe: "5èmeA", dateNaissance: "05/02/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250209", nom: "MALAMOU", prenom: "Kimia Victoire", sexe: "F", classe: "5èmeA", dateNaissance: "09/11/2011", lieuNaissance: "limoges", cycle: "Collège" },
-{ matricule: "CSJB250662", nom: "MANZELE NZIBOU", prenom: "Davina Berlina Benie", sexe: "F", classe: "5èmeA", dateNaissance: "07/03/2014", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250710", nom: "MAWETE", prenom: "Benjamin", sexe: "F", classe: "5èmeA", dateNaissance: "12/06/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250541", nom: "MBOUMBA", prenom: "Juste Christ Constant", sexe: "M", classe: "5èmeA", dateNaissance: "06/04/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250551", nom: "MESSIEM AKABE", prenom: "Prince Sympharien", sexe: "M", classe: "5èmeA", dateNaissance: "04/02/2012", lieuNaissance: "BRAZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250659", nom: "MIASSOUEKAMA BANZOUZI", prenom: "Clemencia", sexe: "F", classe: "5èmeA", dateNaissance: "10/03/2014", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250398", nom: "MOMBO SISSOU", prenom: "Prince Samuel", sexe: "M", classe: "5èmeA", dateNaissance: "18/07/2013", lieuNaissance: "POINTE-NOIRE", cycle: "Collège" },
-{ matricule: "CSJB250389", nom: "NGANDOUNOU", prenom: "Maria Theresia Celeste", sexe: "F", classe: "5èmeA", dateNaissance: "26/10/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250299", nom: "N'KODIA MAYINGA", prenom: "Geordie Jeannecia", sexe: "F", classe: "5èmeA", dateNaissance: "15/05/2013", lieuNaissance: "DOLISIE", cycle: "Collège" },
-{ matricule: "CSJB250484", nom: "OBA ADOUA", prenom: "Exaucee Marnessa", sexe: "F", classe: "5èmeA", dateNaissance: "20/05/2013", lieuNaissance: "BRAZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250225", nom: "OKO MANGOU", prenom: "Joe Richardson Jere", sexe: "M", classe: "5èmeA", dateNaissance: "07/04/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250289", nom: "PAKA WANGHOS", prenom: "Gloirdie Kevina", sexe: "F", classe: "5èmeA", dateNaissance: "04/06/2013", lieuNaissance: "DOLISIE", cycle: "Collège" },
-{ matricule: "CSJB250851", nom: "SAMBA", prenom: "Richi Fredi", sexe: "M", classe: "5èmeA", dateNaissance: "01/01/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250489", nom: "TRANKON", prenom: "Princess Doricia", sexe: "F", classe: "5èmeA", dateNaissance: "02/01/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250654", nom: "TSONI EBINA", prenom: "Francine Lovemy", sexe: "F", classe: "5èmeA", dateNaissance: "28/08/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250247", nom: "VILLA LENDO", prenom: "Gracia Jad", sexe: "F", classe: "5èmeA", dateNaissance: "09/12/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250284", nom: "YOUNDOUKA", prenom: "Jeannette", sexe: "F", classe: "5èmeA", dateNaissance: "28/03/2013", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250006", nom: "ADJOKA", prenom: "Saint Geny Carim-Wast", sexe: "M", classe: "5èmeB", dateNaissance: "19/12/2012", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250005", nom: "APEA OKOUA", prenom: "Emmanuelle", sexe: "F", classe: "5èmeB", dateNaissance: "01/01/2012", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250965", nom: "BANGOULI", prenom: "Chrismie Sephora", sexe: "F", classe: "5èmeB", dateNaissance: "04/08/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250975", nom: "BIDIE", prenom: "Alexandra Henchelvie", sexe: "F", classe: "5èmeB", dateNaissance: "01/07/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB251009", nom: "CAETANO", prenom: "Gudes", sexe: "F", classe: "5èmeB", dateNaissance: "01/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250632", nom: "DIALEMBONKEBI", prenom: "Messi Auge", sexe: "M", classe: "5èmeB", dateNaissance: "26/05/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250611", nom: "DINZILA NDONGALA", prenom: "Winner", sexe: "M", classe: "5èmeB", dateNaissance: "07/11/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250423", nom: "ITOUA OTSIOTSI", prenom: "Davida Reelle", sexe: "F", classe: "5èmeB", dateNaissance: "01/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250603", nom: "KIESSI", prenom: "Belle Oceanne", sexe: "F", classe: "5èmeB", dateNaissance: "01/09/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250524", nom: "LOUHEHO", prenom: "Urfin Maeceline Prometé", sexe: "F", classe: "5èmeB", dateNaissance: "07/05/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250545", nom: "MAKOSSA BRAY", prenom: "Déo-Gracias Kader", sexe: "M", classe: "5èmeB", dateNaissance: "26/12/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250656", nom: "MALOUNDA", prenom: "Kim Ibrela", sexe: "F", classe: "5èmeB", dateNaissance: "26/01/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250872", nom: "MASSAMBA", prenom: "Bertina Amanda Maria", sexe: "F", classe: "5èmeB", dateNaissance: "03/04/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250042", nom: "MBOMBO KAYUMBI", prenom: "Benedicte", sexe: "F", classe: "5èmeB", dateNaissance: "01/12/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250520", nom: "MBOU NANGA", prenom: "Princesse", sexe: "F", classe: "5èmeB", dateNaissance: "21/05/2013", lieuNaissance: "OUESSO", cycle: "Collège" },
-{ matricule: "CSJB250655", nom: "MIASSOUEKAMA BANTSIMBA", prenom: "Lucie Carmelia", sexe: "F", classe: "5èmeB", dateNaissance: "31/01/2013", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250294", nom: "MOKANGA", prenom: "Bienheureuse Clara Joyce", sexe: "F", classe: "5èmeB", dateNaissance: "19/03/2014", lieuNaissance: "BRAZZAVILE", cycle: "Collège" },
-{ matricule: "CSJB250562", nom: "NDZANGA", prenom: "Celeste Blanchéline Précieuse", sexe: "F", classe: "5èmeB", dateNaissance: "05/03/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250574", nom: "NGUEKOU ALAZOULA", prenom: "Elise Melissa", sexe: "F", classe: "5èmeB", dateNaissance: "12/10/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250827", nom: "NKOUNKOU", prenom: "Teddy Guershon", sexe: "M", classe: "5èmeB", dateNaissance: "14/03/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250386", nom: "ODZEKA OYA", prenom: "Nancia Raëlle", sexe: "F", classe: "5èmeB", dateNaissance: "27/06/2012", lieuNaissance: "BETOU", cycle: "Collège" },
-{ matricule: "CSJB250314", nom: "OKAMANGO OVOUKA", prenom: "Ethane Listel", sexe: "M", classe: "5èmeB", dateNaissance: "01/10/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250328", nom: "ONANGA", prenom: "Chloé Malika", sexe: "F", classe: "5èmeB", dateNaissance: "29/05/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250180", nom: "PAPA", prenom: "Serge 1 Clawous Exaucée", sexe: "M", classe: "5èmeB", dateNaissance: "22/07/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250530", nom: "TCHIBOUELA POATY", prenom: "Séverine Précieuse", sexe: "F", classe: "5èmeB", dateNaissance: "12/10/2012", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250160", nom: "TSEME WOGO MUKADI", prenom: "David", sexe: "M", classe: "5èmeB", dateNaissance: "15/05/2012", lieuNaissance: "DOLISIE", cycle: "Collège" },
-{ matricule: "CSJB250133", nom: "TSOUMOU", prenom: "Cess Richy Roldan", sexe: "M", classe: "5èmeB", dateNaissance: "27/02/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250086", nom: "YITOUKOULOU", prenom: "Divine Rodriguez", sexe: "F", classe: "5èmeB", dateNaissance: "28/05/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250703", nom: "ANSELME TATHY", prenom: "Anna Christy", sexe: "F", classe: "6èmeA", dateNaissance: "13/04/2013", lieuNaissance: "POINTE-NOIRE", cycle: "Collège" },
-{ matricule: "CSJB250624", nom: "BANIAKINA", prenom: "Précieuse", sexe: "F", classe: "6èmeA", dateNaissance: "04/02/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250388", nom: "BOPOUMBOU", prenom: "Nicolas Alexandre", sexe: "M", classe: "6èmeA", dateNaissance: "22/10/2014", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250151", nom: "BOUNDZEKI TINOU", prenom: "Lionel Messi Gloire Emmanuel", sexe: "M", classe: "6èmeA", dateNaissance: "21/03/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250264", nom: "CASTANT OKOKO", prenom: "Mavie Precieux", sexe: "M", classe: "6èmeA", dateNaissance: "05/02/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250161", nom: "ELE RAY", prenom: "Alexy De Cassia", sexe: "F", classe: "6èmeA", dateNaissance: "17/12/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250105", nom: "KAYA", prenom: "Gjoe Espoir Nacira", sexe: "F", classe: "6èmeA", dateNaissance: "29/10/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250868", nom: "LEKANA", prenom: "Naurha Clarapa", sexe: "F", classe: "6èmeA", dateNaissance: "06/10/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250346", nom: "MAMPOUYA", prenom: "Hefina Keren", sexe: "F", classe: "6èmeA", dateNaissance: "30/07/2014", lieuNaissance: "BRAZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250104", nom: "MASSAMBA BOMBA", prenom: "Lhelda Déo-Gracias", sexe: "F", classe: "6èmeA", dateNaissance: "29/10/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250429", nom: "MIIEDE BOMONGO", prenom: "Bijoux Franechelle", sexe: "F", classe: "6èmeA", dateNaissance: "01/01/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250695", nom: "NDONGA", prenom: "Lisa Trecy Ariana Chisnela", sexe: "F", classe: "6èmeA", dateNaissance: "08/03/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250691", nom: "NDOUOLOU", prenom: "Brayanne Armelia Jemima", sexe: "F", classe: "6èmeA", dateNaissance: "10/12/2014", lieuNaissance: "POINTE-NOIRE", cycle: "Collège" },
-{ matricule: "CSJB250500", nom: "NKABA", prenom: "Michée", sexe: "M", classe: "6èmeA", dateNaissance: "14/03/2014", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250228", nom: "NZAMBA", prenom: "Prince Aladin", sexe: "M", classe: "6èmeA", dateNaissance: "01/08/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250586", nom: "ONANGHAS ONDAILLE", prenom: "Synliche Sviela", sexe: "F", classe: "6èmeA", dateNaissance: "17/06/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250395", nom: "PONIO", prenom: "EUNIceElvie Chrisca", sexe: "F", classe: "6èmeA", dateNaissance: "09/04/2014", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250300", nom: "SEHOSSOLO KIESSE", prenom: "Kya Winner", sexe: "F", classe: "6èmeA", dateNaissance: "08/07/2013", lieuNaissance: "BRAZZAVILE", cycle: "Collège" },
-{ matricule: "CSJB250528", nom: "TCHIBOUELA POATY", prenom: "Esther Manige", sexe: "F", classe: "6èmeA", dateNaissance: "03/02/2014", lieuNaissance: "BRAZAAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250661", nom: "TRAORE", prenom: "Mannula Asta", sexe: "F", classe: "6èmeA", dateNaissance: "04/06/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250159", nom: "TSEME WOGO", prenom: "Sarah Benie", sexe: "F", classe: "6èmeA", dateNaissance: "25/09/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250355", nom: "VELBEL MARCELLE", prenom: "Noble Precieux", sexe: "M", classe: "6èmeA", dateNaissance: "13/01/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250634", nom: "YENZABIGANDA", prenom: "Firmin Junior", sexe: "M", classe: "6èmeA", dateNaissance: "18/07/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250192", nom: "ADZOH", prenom: "Jerome Exaucé Kessi Segah", sexe: "M", classe: "6èmeB", dateNaissance: "28/09/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250441", nom: "BABAKADI", prenom: "Jovial Felicité", sexe: "F", classe: "6èmeB", dateNaissance: "01/01/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250516", nom: "BIMPOUDI", prenom: "Maurice", sexe: "M", classe: "6èmeB", dateNaissance: "13/05/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250305", nom: "BOUMBA NZENGUI", prenom: "Heloïm", sexe: "M", classe: "6èmeB", dateNaissance: "12/07/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250396", nom: "CANDES N'CHINGA", prenom: "Manassé Triomphe", sexe: "F", classe: "6èmeB", dateNaissance: "04/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB13A0001", nom: "EBATA", prenom: "MARTIN JULES", sexe: "M", classe: "6èmeB", dateNaissance: "04/04/2008", lieuNaissance: "BRAZZA", cycle: "Collège" },
-{ matricule: "CSJB250982", nom: "EPA", prenom: "Vincent Jemima", sexe: "F", classe: "6èmeB", dateNaissance: "22/04/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250248", nom: "GAKOSSO", prenom: "Destie Prodige", sexe: "F", classe: "6èmeB", dateNaissance: "25/07/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250336", nom: "KOUSSIMBASSA", prenom: "Chailla Alicia", sexe: "F", classe: "6èmeB", dateNaissance: "24/05/2013", lieuNaissance: "BRAZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250987", nom: "LIBALI", prenom: "Jinan", sexe: "F", classe: "6èmeB", dateNaissance: "08/11/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250157", nom: "MAMPOUYA", prenom: "Eliana Lara Cyrinne", sexe: "F", classe: "6èmeB", dateNaissance: "22/01/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250705", nom: "MANGOMO", prenom: "Dilane Rayann De Régis", sexe: "M", classe: "6èmeB", dateNaissance: "19/10/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250643", nom: "MBOUKOU", prenom: "Christofer Chaupel", sexe: "M", classe: "6èmeB", dateNaissance: "07/08/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250465", nom: "NAWENAYO", prenom: "Fabricia", sexe: "F", classe: "6èmeB", dateNaissance: "30/04/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250647", nom: "NDOUDI", prenom: "Perla Honorine", sexe: "F", classe: "6èmeB", dateNaissance: "04/07/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250283", nom: "NIANGALA BANTSIMBA", prenom: "Charmant Perfection", sexe: "M", classe: "6èmeB", dateNaissance: "14/07/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250600", nom: "NKOUKA DUCAT", prenom: "Ketsia Manifique", sexe: "F", classe: "6èmeB", dateNaissance: "20/04/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB251006", nom: "NZOBADILA MAKOUMBOU", prenom: "Syd Dieuveille", sexe: "M", classe: "6èmeB", dateNaissance: "15/05/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250384", nom: "NZOUTANI LOCKO", prenom: "Christie Jaelle", sexe: "F", classe: "6èmeB", dateNaissance: "16/02/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250003", nom: "ONDONDO", prenom: "Jean Bruno", sexe: "M", classe: "6èmeB", dateNaissance: "01/01/2012", lieuNaissance: "BRAZZAILLE", cycle: "Collège" },
-{ matricule: "CSJB250704", nom: "SOUKA BANTIMBA", prenom: "Attai Bruno Ketsia", sexe: "F", classe: "6èmeB", dateNaissance: "14/01/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250700", nom: "SOUKA BANZOUZI", prenom: "Kim Taylor Destiné", sexe: "F", classe: "6èmeB", dateNaissance: "14/01/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250664", nom: "TCHINDILA MAYINDOU", prenom: "Reine", sexe: "F", classe: "6èmeB", dateNaissance: "12/12/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250077", nom: "YANDZA", prenom: "Messie Faveur De Dieu", sexe: "M", classe: "6èmeB", dateNaissance: "01/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Collège" },
-{ matricule: "CSJB250570", nom: "ALLAM SACRE", prenom: "De Christ Macro Kaaris", sexe: "M", classe: "CE1", dateNaissance: "10/03/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250604", nom: "BALOSSA", prenom: "Chandelia Monange", sexe: "F", classe: "CE1", dateNaissance: "15/04/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250419", nom: "BANZA NTONDELE", prenom: "Onesime Sachel", sexe: "F", classe: "CE1", dateNaissance: "22/01/2018", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250521", nom: "DIARRA", prenom: "Kadidiatou", sexe: "F", classe: "CE1", dateNaissance: "12/09/2017", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250714", nom: "KINDOUDI MANGANI", prenom: "Blessing", sexe: "M", classe: "CE1", dateNaissance: "04/06/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250649", nom: "KOULOUMBOU NGANGOUE", prenom: "Winner Pauldi", sexe: "M", classe: "CE1", dateNaissance: "04/09/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250485", nom: "LOUANDA MAKEBA", prenom: "Dav-Blaissy Noëllia", sexe: "F", classe: "CE1", dateNaissance: "22/11/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250567", nom: "MABANDZA", prenom: "Guy Juste Emmanuel", sexe: "M", classe: "CE1", dateNaissance: "01/06/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250461", nom: "MABOUKALA", prenom: "Fadriche", sexe: "M", classe: "CE1", dateNaissance: "17/02/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250233", nom: "MAKAYA GAMBA", prenom: "Annara Annacia", sexe: "F", classe: "CE1", dateNaissance: "13/04/2018", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250069", nom: "MASSENET MALLES", prenom: "Messie Faveur De Dieu", sexe: "M", classe: "CE1", dateNaissance: "24/07/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250612", nom: "MBANI", prenom: "Bonheur Hugues Heureux", sexe: "M", classe: "CE1", dateNaissance: "07/07/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250504", nom: "MBANI", prenom: "Harcelle Remercie", sexe: "F", classe: "CE1", dateNaissance: "08/07/2017", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250295", nom: "MBEMBA YOMBI", prenom: "Luca", sexe: "M", classe: "CE1", dateNaissance: "01/12/2017", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250318", nom: "MBOMA BOSSA", prenom: "Joseph Benel", sexe: "M", classe: "CE1", dateNaissance: "20/10/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250548", nom: "MOKELE OWASSA", prenom: "Christ Ravi", sexe: "M", classe: "CE1", dateNaissance: "23/03/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250150", nom: "MOUYOMBO", prenom: "Emmanuel Bienheureuse", sexe: "M", classe: "CE1", dateNaissance: "17/07/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250182", nom: "NKOUNKOU", prenom: "Bienheureux Grandeur", sexe: "M", classe: "CE1", dateNaissance: "01/12/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250149", nom: "NTAJO", prenom: "Menichie laila", sexe: "F", classe: "CE1", dateNaissance: "21/02/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250315", nom: "OKAMANGO NIAGUI", prenom: "Kenane Cécile", sexe: "F", classe: "CE1", dateNaissance: "19/02/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250249", nom: "OKANA", prenom: "Grace Divine Rhynelle", sexe: "F", classe: "CE1", dateNaissance: "19/02/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250694", nom: "OKO OLINGOBA", prenom: "Ethan Yohan", sexe: "M", classe: "CE1", dateNaissance: "09/05/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250589", nom: "ONANGHAS", prenom: "Obed Oword Steveen", sexe: "M", classe: "CE1", dateNaissance: "16/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250668", nom: "ONIDJE", prenom: "Penlecya", sexe: "F", classe: "CE1", dateNaissance: "21/05/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250347", nom: "PASSI", prenom: "Elara Ronette", sexe: "F", classe: "CE1", dateNaissance: "21/06/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250312", nom: "SAFOULA", prenom: "Precieux Albreche", sexe: "M", classe: "CE1", dateNaissance: "19/11/2023", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250132", nom: "SAKOMA", prenom: "Amour Printagna", sexe: "F", classe: "CE1", dateNaissance: "04/05/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250523", nom: "TCHIBOUELA POATY", prenom: "Junior Duval", sexe: "M", classe: "CE1", dateNaissance: "29/09/2017", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250277", nom: "TSEME WOGO", prenom: "Divine Lyce", sexe: "F", classe: "CE1", dateNaissance: "20/09/2017", lieuNaissance: "DAKAR", cycle: "Primaire" },
-{ matricule: "CSJB250019", nom: "YOUNDOUKA", prenom: "Jul Elrone", sexe: "M", classe: "CE1", dateNaissance: "01/01/2017", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250210", nom: "BALOCKY", prenom: "Blessing Gleam Arletia", sexe: "F", classe: "CE2", dateNaissance: "02/01/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250999", nom: "BANIONGUILA", prenom: "Chris Archange", sexe: "M", classe: "CE2", dateNaissance: "18/02/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250167", nom: "BANZOULOU IBARA", prenom: "Isaac Winner", sexe: "F", classe: "CE2", dateNaissance: "29/11/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250026", nom: "BITSINDOU", prenom: "Sagesse Dieuvi Ephel", sexe: "M", classe: "CE2", dateNaissance: "01/01/2017", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250176", nom: "BONGO", prenom: "Jhess", sexe: "M", classe: "CE2", dateNaissance: "06/10/2017", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250383", nom: "BOPOUMBOU", prenom: "Nicia", sexe: "F", classe: "CE2", dateNaissance: "04/01/2018", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250037", nom: "BOUET", prenom: "Celeste", sexe: "F", classe: "CE2", dateNaissance: "01/01/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250631", nom: "DITA", prenom: "Chloé", sexe: "F", classe: "CE2", dateNaissance: "15/06/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250008", nom: "KOLO", prenom: "Aboubacar Fawzane", sexe: "M", classe: "CE2", dateNaissance: "05/10/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250519", nom: "LOUBAYI", prenom: "Christie Josette", sexe: "F", classe: "CE2", dateNaissance: "16/02/2001", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250400", nom: "MAYALA ISSONGO", prenom: "Precieux Rollnel", sexe: "M", classe: "CE2", dateNaissance: "15/01/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250181", nom: "MBAKA OBADZAMI", prenom: "Alliance Prince", sexe: "M", classe: "CE2", dateNaissance: "22/04/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250174", nom: "MBANZOULOU BOUANGA", prenom: "Cesarine Hope", sexe: "F", classe: "CE2", dateNaissance: "29/11/2017", lieuNaissance: "Douala", cycle: "Primaire" },
-{ matricule: "CSJB250165", nom: "MBANZOULOU WANGHOS", prenom: "Rita Joyce", sexe: "F", classe: "CE2", dateNaissance: "29/11/2017", lieuNaissance: "DOULA", cycle: "Primaire" },
-{ matricule: "CSJB250717", nom: "MBI BIDOUNDA", prenom: "Mercia", sexe: "F", classe: "CE2", dateNaissance: "22/07/2017", lieuNaissance: "MALLEMBE", cycle: "Primaire" },
-{ matricule: "CSJB250194", nom: "NGAMI LOUOKO", prenom: "Arthur Ryan", sexe: "M", classe: "CE2", dateNaissance: "20/02/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250505", nom: "NGOMA-MOUANDA", prenom: "Daniel", sexe: "M", classe: "CE2", dateNaissance: "04/04/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250371", nom: "NGOUBI", prenom: "Kléo Ckeldon", sexe: "M", classe: "CE2", dateNaissance: "14/03/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250288", nom: "NIANGALA SAMBA", prenom: "Virgile Joseph", sexe: "M", classe: "CE2", dateNaissance: "21/01/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250693", nom: "NKODIA", prenom: "Mignon Manacé", sexe: "M", classe: "CE2", dateNaissance: "18/10/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250382", nom: "ODZEKA NIAKANEA", prenom: "Bénie Darleche", sexe: "F", classe: "CE2", dateNaissance: "25/04/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250025", nom: "OKOUA TITINE", prenom: "Adolphine", sexe: "F", classe: "CE2", dateNaissance: "01/01/2017", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250186", nom: "PAPA ONDZAMBE", prenom: "Danielle Precieuse du Ciel", sexe: "F", classe: "CE2", dateNaissance: "20/06/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250644", nom: "PENIEL DE PACOME", prenom: "Maria Bel Ange", sexe: "F", classe: "CE2", dateNaissance: "14/05/2017", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250296", nom: "SAMBA", prenom: "Floriane Hudey", sexe: "F", classe: "CE2", dateNaissance: "04/01/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250372", nom: "YOKA NZUNGATSENGUEE", prenom: "Judicia Emilia", sexe: "F", classe: "CE2", dateNaissance: "17/11/2017", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250009", nom: "ADJOKA KOUNI", prenom: "Roane Mignon Rieny", sexe: "M", classe: "CM1", dateNaissance: "11/02/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250152", nom: "BATCHI", prenom: "Ingrid Amira", sexe: "F", classe: "CM1", dateNaissance: "28/02/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250994", nom: "BAYOUVOULA AUGUE", prenom: "MC Brigde", sexe: "M", classe: "CM1", dateNaissance: "29/11/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250304", nom: "DIAKAMONA", prenom: "Helena Sidelia", sexe: "F", classe: "CM1", dateNaissance: "30/01/2016", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250211", nom: "EKOTSHI", prenom: "Eurêka Raldine", sexe: "F", classe: "CM1", dateNaissance: "05/10/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250533", nom: "GANGA", prenom: "Magane Astrien", sexe: "F", classe: "CM1", dateNaissance: "31/01/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250434", nom: "KIBODI", prenom: "Nao Dieuvi", sexe: "M", classe: "CM1", dateNaissance: "05/12/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250125", nom: "KOUAYAS BITOWE", prenom: "Dulcinée Aurore", sexe: "F", classe: "CM1", dateNaissance: "12/12/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250517", nom: "KOUMOU", prenom: "Yann Junias", sexe: "M", classe: "CM1", dateNaissance: "02/02/2017", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250526", nom: "LOUHEHO", prenom: "JOyce Divine Fidelia", sexe: "F", classe: "CM1", dateNaissance: "11/12/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250012", nom: "LOUTONADIO", prenom: "Benjamin Alexis", sexe: "M", classe: "CM1", dateNaissance: "25/08/2014", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250572", nom: "MABIKA KAYA", prenom: "Yulia Olicia", sexe: "F", classe: "CM1", dateNaissance: "14/08/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250137", nom: "MADZENGUE PEA", prenom: "Nelvie Chloé", sexe: "F", classe: "CM1", dateNaissance: "01/01/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB251010", nom: "MAKABASS", prenom: "Miche El Glory David", sexe: "M", classe: "CM1", dateNaissance: "17/04/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250397", nom: "MASSE", prenom: "Michelle Francia", sexe: "F", classe: "CM1", dateNaissance: "23/12/2015", lieuNaissance: "braZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250593", nom: "MATINGOU", prenom: "Marie Colombe Aurore", sexe: "F", classe: "CM1", dateNaissance: "24/11/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250553", nom: "MESSIEM", prenom: "Bienvenue ArchangeMichel", sexe: "M", classe: "CM1", dateNaissance: "15/12/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250601", nom: "MIABOUNA BAFF", prenom: "MerciaDieuvy", sexe: "M", classe: "CM1", dateNaissance: "02/02/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250043", nom: "MIATOUNDILA", prenom: "Marie sublime", sexe: "F", classe: "CM1", dateNaissance: "01/01/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250431", nom: "MIEDE", prenom: "Franck", sexe: "M", classe: "CM1", dateNaissance: "01/01/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250576", nom: "MOULELE", prenom: "Nayade", sexe: "M", classe: "CM1", dateNaissance: "24/05/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250324", nom: "NDOSSA", prenom: "Jhonaël Thomas", sexe: "M", classe: "CM1", dateNaissance: "08/04/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250191", nom: "NGAMI BAHI", prenom: "Emilia Esther", sexe: "F", classe: "CM1", dateNaissance: "12/09/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250967", nom: "NKODIA", prenom: "Rayhan BAZERE", sexe: "M", classe: "CM1", dateNaissance: "29/04/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250303", nom: "N'KODIA OPERA", prenom: "Jeremie", sexe: "M", classe: "CM1", dateNaissance: "30/04/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250557", nom: "NKOUKA", prenom: "Chispher John", sexe: "M", classe: "CM1", dateNaissance: "01/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250602", nom: "NKOUKA DUCAT", prenom: "Ruth Bienheureuse", sexe: "F", classe: "CM1", dateNaissance: "10/06/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250134", nom: "OBOUNGA", prenom: "Destinée", sexe: "F", classe: "CM1", dateNaissance: "15/04/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250168", nom: "OTAMBA CATHERINE", prenom: "Obri lucia", sexe: "F", classe: "CM1", dateNaissance: "25/08/2016", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250473", nom: "PEKA", prenom: "Brel Ralcoh", sexe: "M", classe: "CM1", dateNaissance: "22/05/2014", lieuNaissance: "LEFINI", cycle: "Primaire" },
-{ matricule: "CSJB250839", nom: "SANGA-MBONGO", prenom: "Ludhe Christopher Felix", sexe: "M", classe: "CM1", dateNaissance: "26/05/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250070", nom: "SANGARE", prenom: "Rokia", sexe: "F", classe: "CM1", dateNaissance: "09/12/2016", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250127", nom: "SEHOSSOLO MIAFOUNA", prenom: "Michael Kevine", sexe: "M", classe: "CM1", dateNaissance: "08/02/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250162", nom: "TSEME WOGO", prenom: "Victoire Hadassa", sexe: "F", classe: "CM1", dateNaissance: "25/12/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250013", nom: "TSETSA SITA", prenom: "Sagesse", sexe: "F", classe: "CM1", dateNaissance: "01/01/2016", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250015", nom: "ZABA CONSTAN", prenom: "Leonel Marcel", sexe: "M", classe: "CM1", dateNaissance: "25/03/2016", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250321", nom: "AHOUE", prenom: "Marc Marlot", sexe: "M", classe: "CM2", dateNaissance: "08/11/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250055", nom: "ANDZOUANA", prenom: "Alfryd", sexe: "M", classe: "CM2", dateNaissance: "30/08/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250117", nom: "ATI", prenom: "Junior joseph israel", sexe: "M", classe: "CM2", dateNaissance: "16/08/2015", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250171", nom: "BONGO", prenom: "Bargevian Christ Henry", sexe: "M", classe: "CM2", dateNaissance: "17/10/2014", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250716", nom: "EBOKI MOBIBA", prenom: "Michelle Benie", sexe: "F", classe: "CM2", dateNaissance: "01/01/2015", lieuNaissance: "BRAZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250993", nom: "EMPHAYOULOU GAMBIA", prenom: "Isaac Christiano Rigobert", sexe: "M", classe: "CM2", dateNaissance: "16/05/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250411", nom: "ETOU OBIONO", prenom: "Providebce Gilberta", sexe: "F", classe: "CM2", dateNaissance: "15/05/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250348", nom: "KALYNSH KABA", prenom: "Mariam Leïla Henrica", sexe: "F", classe: "CM2", dateNaissance: "02/04/2015", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250309", nom: "KIMVOUAZI", prenom: "Prunnelle Glory", sexe: "F", classe: "CM2", dateNaissance: "17/10/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250444", nom: "KINDZI", prenom: "Paradoxe", sexe: "M", classe: "CM2", dateNaissance: "26/12/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250515", nom: "KOUMOU", prenom: "God Mariel", sexe: "M", classe: "CM2", dateNaissance: "17/03/2013", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250658", nom: "MADZOU", prenom: "Brianie", sexe: "F", classe: "CM2", dateNaissance: "04/06/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250344", nom: "MAMPOUYA", prenom: "Nathan", sexe: "M", classe: "CM2", dateNaissance: "15/05/2015", lieuNaissance: "BRAZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250352", nom: "MAT0NDO", prenom: "Juliana Idricia", sexe: "F", classe: "CM2", dateNaissance: "17/06/2015", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250454", nom: "MATSIMOUNA", prenom: "Gédéon Destin", sexe: "M", classe: "CM2", dateNaissance: "11/09/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250585", nom: "MAVOUNGOU", prenom: "Novais Nolann", sexe: "M", classe: "CM2", dateNaissance: "14/03/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250706", nom: "MAYANGUI", prenom: "Syrielle", sexe: "F", classe: "CM2", dateNaissance: "07/05/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250587", nom: "MENDES THIMONTEE", prenom: "Richmen", sexe: "M", classe: "CM2", dateNaissance: "03/06/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250120", nom: "MISSAKILA", prenom: "Anaya", sexe: "F", classe: "CM2", dateNaissance: "09/01/2015", lieuNaissance: "AFRIQUE DU SUD", cycle: "Primaire" },
-{ matricule: "CSJB250084", nom: "MITSENGA KAYUMBI", prenom: "Daniella", sexe: "F", classe: "CM2", dateNaissance: "08/05/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250040", nom: "MOHAMA ABDOULAYE", prenom: "Belle Kassim", sexe: "M", classe: "CM2", dateNaissance: "03/11/2014", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250319", nom: "MONTSOUKA", prenom: "Archange", sexe: "M", classe: "CM2", dateNaissance: "17/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250511", nom: "MVOUSSA", prenom: "Yoahann", sexe: "M", classe: "CM2", dateNaissance: "05/03/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250306", nom: "NKODIA WATIZABI", prenom: "Generie", sexe: "F", classe: "CM2", dateNaissance: "15/10/2014", lieuNaissance: "BRAZZAVILE", cycle: "Primaire" },
-{ matricule: "CSJB250720", nom: "NKOUNKOU", prenom: "Espoir", sexe: "F", classe: "CM2", dateNaissance: "14/12/2015", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250719", nom: "NKOUNKOU", prenom: "Winner", sexe: "M", classe: "CM2", dateNaissance: "20/11/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250488", nom: "NTEMO MATSIMONA", prenom: "Prinsney Dieubéni", sexe: "M", classe: "CM2", dateNaissance: "13/05/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250244", nom: "OKANA DIRA", prenom: "Rose Victoire Brydanie", sexe: "F", classe: "CM2", dateNaissance: "10/07/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250988", nom: "OSSE LESTIME", prenom: "Perle Anaïs", sexe: "F", classe: "CM2", dateNaissance: "05/03/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250374", nom: "PAMBOU", prenom: "Joseph Donald", sexe: "M", classe: "CM2", dateNaissance: "08/10/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250017", nom: "TCHICAYA MAVOUGOU", prenom: "Anne Soffy", sexe: "F", classe: "CM2", dateNaissance: "01/01/2016", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250667", nom: "TCHINDILA MAY", prenom: "Prince Divine", sexe: "M", classe: "CM2", dateNaissance: "15/02/2014", lieuNaissance: "BRAZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250565", nom: "TITI", prenom: "Abine Victoire", sexe: "M", classe: "CM2", dateNaissance: "20/10/2013", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250039", nom: "TSOUMOU", prenom: "Priscile Rehoboth Consola", sexe: "F", classe: "CM2", dateNaissance: "26/08/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250978", nom: "YENDZA", prenom: "Benedicte", sexe: "F", classe: "CM2", dateNaissance: "11/01/2015", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250378", nom: "BIYEDI KISSITA", prenom: "Sagesse Julia Estimé", sexe: "F", classe: "CP1", dateNaissance: "21/08/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250173", nom: "BONGO", prenom: "Keyan Naveck Dieuveil", sexe: "M", classe: "CP1", dateNaissance: "21/06/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250609", nom: "KIBONZI", prenom: "Daniel Kenzo Steve", sexe: "M", classe: "CP1", dateNaissance: "02/01/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250010", nom: "LOUTONADIO BAKALA", prenom: "Luca Francis", sexe: "M", classe: "CP1", dateNaissance: "26/02/2020", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250833", nom: "MABAIALA", prenom: "Isaac Amens", sexe: "M", classe: "CP1", dateNaissance: "28/09/2019", lieuNaissance: "BRAZZAVILE", cycle: "Primaire" },
-{ matricule: "CSJB250464", nom: "MABOUAKALA", prenom: "Prodige Prince", sexe: "M", classe: "CP1", dateNaissance: "17/04/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250138", nom: "MADZENGUE PEA", prenom: "Marityne Cathie Denise", sexe: "F", classe: "CP1", dateNaissance: "06/06/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250966", nom: "MADZEYA OUZZIEL", prenom: "Angela Melinon", sexe: "F", classe: "CP1", dateNaissance: "18/01/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250380", nom: "MAKAYA MOUSSONES", prenom: "Henricia Christina Bénie", sexe: "F", classe: "CP1", dateNaissance: "02/06/2020", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250583", nom: "MATINGOU", prenom: "Jocya Sagesse", sexe: "M", classe: "CP1", dateNaissance: "14/03/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250580", nom: "MATINGOU", prenom: "Joseph Aubin", sexe: "M", classe: "CP1", dateNaissance: "14/03/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250596", nom: "MAYASSI", prenom: "Béni Vainquere Josia", sexe: "F", classe: "CP1", dateNaissance: "11/01/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250455", nom: "MOMBO SISSOU", prenom: "Freddy Ariel", sexe: "M", classe: "CP1", dateNaissance: "12/05/2020", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB251005", nom: "NDOKOLO MALANDA", prenom: "Emmavie Grâce Fortuney", sexe: "F", classe: "CP1", dateNaissance: "14/05/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250226", nom: "OKABI OYOUA", prenom: "Victoire Prisca", sexe: "F", classe: "CP1", dateNaissance: "29/08/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250068", nom: "OSSANGUET DIMECA", prenom: "Kayila Maeva", sexe: "F", classe: "CP1", dateNaissance: "25/03/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250838", nom: "SANGA ILAME", prenom: "Juliette Kyliane", sexe: "F", classe: "CP1", dateNaissance: "27/05/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250493", nom: "TRANKON", prenom: "Prodige Prince", sexe: "F", classe: "CP1", dateNaissance: "20/10/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250079", nom: "YANDZA", prenom: "Kimia", sexe: "F", classe: "CP1", dateNaissance: "01/01/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250049", nom: "ANDZOUANA", prenom: "Alicia", sexe: "F", classe: "CP2", dateNaissance: "01/01/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250681", nom: "BANDILA NKOUSSOU", prenom: "Marta Rubby", sexe: "F", classe: "CP2", dateNaissance: "21/06/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250635", nom: "DITA", prenom: "David", sexe: "M", classe: "CP2", dateNaissance: "12/11/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250415", nom: "EYANGOLO", prenom: "Ricy Junior William", sexe: "M", classe: "CP2", dateNaissance: "30/07/2011", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250556", nom: "FRAZZIA ETOUMONGO", prenom: "Zelere Winner", sexe: "M", classe: "CP2", dateNaissance: "28/07/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250990", nom: "INIONGUI", prenom: "Archange", sexe: "M", classe: "CP2", dateNaissance: "14/10/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250420", nom: "ITOUA NIANGUENGUE", prenom: "Rose", sexe: "F", classe: "CP2", dateNaissance: "01/01/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250537", nom: "LOUAMBA MOUKOUNDA", prenom: "Marivie Théresia", sexe: "F", classe: "CP2", dateNaissance: "08/01/2019", lieuNaissance: "DOLISIE", cycle: "Primaire" },
-{ matricule: "CSJB250011", nom: "LOUTONADIO", prenom: "Jason Evan's", sexe: "M", classe: "CP2", dateNaissance: "12/09/2016", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB251008", nom: "LOUYINDOULA SILAHO", prenom: "Djenner Nicy", sexe: "M", classe: "CP2", dateNaissance: "03/02/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250569", nom: "MABIKA KAYA", prenom: "Bely Blaise", sexe: "M", classe: "CP2", dateNaissance: "21/05/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250622", nom: "MAFOUTA", prenom: "Jenicia", sexe: "F", classe: "CP2", dateNaissance: "04/05/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250554", nom: "MAÏSSA MOUAKA", prenom: "Gaïs", sexe: "M", classe: "CP2", dateNaissance: "29/09/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250508", nom: "MALONGA YALIBI", prenom: "Adria Gaëlle", sexe: "F", classe: "CP2", dateNaissance: "28/08/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250712", nom: "MAMPASSI", prenom: "Yanne Francelie", sexe: "M", classe: "CP2", dateNaissance: "19/09/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250016", nom: "MAVOUNGOU", prenom: "Marc Owen", sexe: "M", classe: "CP2", dateNaissance: "17/01/2019", lieuNaissance: "POINTE-NOIRE", cycle: "Primaire" },
-{ matricule: "CSJB250184", nom: "MBAKA AMBOMBI", prenom: "Ephraïm Jules", sexe: "M", classe: "CP2", dateNaissance: "26/09/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250826", nom: "MBOMBA MATSIMOUNA", prenom: "Prodige Soise", sexe: "F", classe: "CP2", dateNaissance: "13/03/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250669", nom: "MIASSOUEKAMA", prenom: "Chanelle", sexe: "F", classe: "CP2", dateNaissance: "30/06/2018", lieuNaissance: "BRAZAAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250035", nom: "NKOUKA", prenom: "Guyvina Gabriella", sexe: "F", classe: "CP2", dateNaissance: "13/02/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250401", nom: "NOURADDINE", prenom: "Mohamed", sexe: "M", classe: "CP2", dateNaissance: "30/03/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250672", nom: "ONIDJE", prenom: "Osécia", sexe: "F", classe: "CP2", dateNaissance: "01/01/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250671", nom: "ONIDJE", prenom: "Osée", sexe: "M", classe: "CP2", dateNaissance: "17/05/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250992", nom: "ONKA GANKOU", prenom: "Louis Vincent Amqury", sexe: "M", classe: "CP2", dateNaissance: "10/06/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250670", nom: "TCHINDILA MAY", prenom: "Edna", sexe: "M", classe: "CP2", dateNaissance: "04/07/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250491", nom: "TRANKON", prenom: "Prude Rejoice", sexe: "F", classe: "CP2", dateNaissance: "24/05/2018", lieuNaissance: "BRAZZAVILLE", cycle: "Primaire" },
-{ matricule: "CSJB250018", nom: "YOUNDOUKA", prenom: "Orvy Adonai", sexe: "M", classe: "CP2", dateNaissance: "01/01/2017", lieuNaissance: "BRAZZAILLE", cycle: "Primaire" },
-{ matricule: "CSJB250313", nom: "BITOKI", prenom: "Christelvie Winner", sexe: "F", classe: "Gar", dateNaissance: "30/09/2023", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250166", nom: "KINGATI MARTIKA", prenom: "Ode Aivie Lihene", sexe: "F", classe: "Gar", dateNaissance: "28/09/2023", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250325", nom: "MBAMA", prenom: "Shammah Winner", sexe: "M", classe: "Gar", dateNaissance: "04/02/2024", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250840", nom: "SANGA-MBONGO", prenom: "Ludhe Seraphin", sexe: "M", classe: "Gar", dateNaissance: "06/08/2023", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250022", nom: "TSETSA", prenom: "Seth Matéo", sexe: "M", classe: "Gar", dateNaissance: "01/01/2023", lieuNaissance: "BRAZZAILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250342", nom: "BENY-GASSAYES", prenom: "Marie Zoé Chloé", sexe: "F", classe: "P1", dateNaissance: "11/10/2022", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250203", nom: "DIANGA IBINGA", prenom: "Mayelga Excelle", sexe: "F", classe: "P1", dateNaissance: "06/11/2022", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250532", nom: "GANGA MBEDI", prenom: "Candyce Francesca", sexe: "F", classe: "P1", dateNaissance: "19/05/2022", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250062", nom: "GUSMEY SECOND", prenom: "Aurcel Mckenie", sexe: "M", classe: "P1", dateNaissance: "06/09/2022", lieuNaissance: "BRAZZVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250231", nom: "MAKAYA", prenom: "Nad Licha Louisa Miriame", sexe: "F", classe: "P1", dateNaissance: "23/12/2022", lieuNaissance: "POINTE-NOIRE", cycle: "Préscolaire" },
-{ matricule: "CSJB250361", nom: "MATONDO", prenom: "Chloe Winner", sexe: "F", classe: "P1", dateNaissance: "07/01/2022", lieuNaissance: "BRAZAAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250666", nom: "MIASSOUEKAMA", prenom: "Leïla", sexe: "F", classe: "P1", dateNaissance: "02/06/2023", lieuNaissance: "BRAZAAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250577", nom: "MOULELE", prenom: "Victor Joseph", sexe: "M", classe: "P1", dateNaissance: "24/03/2002", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250023", nom: "TSETSA SITA", prenom: "Keline Maria", sexe: "F", classe: "P1", dateNaissance: "01/01/2022", lieuNaissance: "BRAZZAILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250024", nom: "YANDOUMA", prenom: "Hope Agreable Iris", sexe: "F", classe: "P1", dateNaissance: "05/01/2023", lieuNaissance: "BRAZZAILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250683", nom: "YOKA", prenom: "Vanessa Keïna", sexe: "F", classe: "P1", dateNaissance: "25/06/2022", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250394", nom: "ZAMBA", prenom: "Mednas Annaïs Michelle", sexe: "F", classe: "P1", dateNaissance: "29/04/2023", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250053", nom: "ANDZOUANA", prenom: "Prince", sexe: "M", classe: "P2", dateNaissance: "01/01/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250422", nom: "BANZA MOUSSAOU", prenom: "Gabriéla Francia", sexe: "F", classe: "P2", dateNaissance: "19/04/2022", lieuNaissance: "BRAZAAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250446", nom: "KOKOLO", prenom: "Grace Colombe", sexe: "F", classe: "P2", dateNaissance: "13/08/2021", lieuNaissance: "BRAZAAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250701", nom: "MAYENGUI", prenom: "Prodige - Eternite", sexe: "F", classe: "P2", dateNaissance: "06/05/2022", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250542", nom: "NKOUKA", prenom: "Soraya Aristide Kelsy", sexe: "F", classe: "P2", dateNaissance: "20/12/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250227", nom: "ONTSOUKA", prenom: "Reine Heureuse", sexe: "F", classe: "P2", dateNaissance: "21/05/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250172", nom: "OTAMBA", prenom: "Andy Dominique Victoire", sexe: "F", classe: "P2", dateNaissance: "08/08/2019", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250106", nom: "SEHOSSOLO KOLOKO", prenom: "Raphael Bonheur", sexe: "M", classe: "P2", dateNaissance: "02/12/2021", lieuNaissance: "BRAZZVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250525", nom: "TCHIBOUELA POATY", prenom: "Gloire Divine", sexe: "F", classe: "P2", dateNaissance: "01/01/2019", lieuNaissance: "BRAZAAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250412", nom: "EYANGOLO", prenom: "Rayan Justin", sexe: "M", classe: "P3", dateNaissance: "02/03/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250513", nom: "KOUROU", prenom: "Anna Martinez", sexe: "F", classe: "P3", dateNaissance: "07/07/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250021", nom: "LOUTONADIO", prenom: "Elda Gracia", sexe: "F", classe: "P3", dateNaissance: "21/01/2020", lieuNaissance: "BRAZZAILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB251007", nom: "MAKABASS", prenom: "Vie sainte Winner God", sexe: "M", classe: "P3", dateNaissance: "29/12/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250107", nom: "MAMPOUYA", prenom: "Ayman Adil", sexe: "M", classe: "P3", dateNaissance: "01/01/2020", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250341", nom: "MAYOUMA", prenom: "Junior Davy", sexe: "M", classe: "P3", dateNaissance: "19/08/2021", lieuNaissance: "BRAZAAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250497", nom: "NGOMA MOUANDA", prenom: "Salem", sexe: "M", classe: "P3", dateNaissance: "09/03/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250385", nom: "ODZEKA ONDZE", prenom: "Riche Roinel", sexe: "M", classe: "P3", dateNaissance: "13/10/2021", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250310", nom: "OKOKO CASTANT", prenom: "Exaucé Nolane", sexe: "M", classe: "P3", dateNaissance: "13/03/2021", lieuNaissance: "BRAZZAVILE", cycle: "Préscolaire" },
-{ matricule: "CSJB250280", nom: "TSEME WOGO", prenom: "Marie Gràce", sexe: "F", classe: "P3", dateNaissance: "08/04/2021", lieuNaissance: "BRAZZAVILE", cycle: "Préscolaire" },
-{ matricule: "CSJB250393", nom: "ZAMBA", prenom: "Chelnas Medane", sexe: "F", classe: "P3", dateNaissance: "01/06/2012", lieuNaissance: "BRAZZAVILLE", cycle: "Préscolaire" },
-{ matricule: "CSJB250256", nom: "ATIBAYEBA", prenom: "Guilene Mylove", sexe: "F", classe: "Terminale C", dateNaissance: "05/06/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250869", nom: "BASSONGA", prenom: "Gaston Maïse", sexe: "M", classe: "Terminale C", dateNaissance: "13/05/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250711", nom: "BOKAZOLA", prenom: "Dornelle Esperance De Sara", sexe: "F", classe: "Terminale C", dateNaissance: "08/08/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250864", nom: "EBEBE", prenom: "Consola Bunie Sephora", sexe: "F", classe: "Terminale C", dateNaissance: "04/03/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250588", nom: "MABICA BOUDOU", prenom: "Aldie Loricia", sexe: "F", classe: "Terminale C", dateNaissance: "20/08/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250033", nom: "MBOUMBA MASSOUNGA", prenom: "Gloire claudise", sexe: "F", classe: "Terminale C", dateNaissance: "19/02/2009", lieuNaissance: "DOLISIE", cycle: "Lycée général" },
-{ matricule: "CSJB250462", nom: "MOMBO SISSOU", prenom: "FlorianeGhislaine", sexe: "F", classe: "Terminale C", dateNaissance: "21/09/2009", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée général" },
-{ matricule: "CSJB250338", nom: "MOULENGUE", prenom: "France Sammah Pierre", sexe: "M", classe: "Terminale C", dateNaissance: "03/06/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250253", nom: "OCKANDZA ATOUERET", prenom: "Axel Brayann", sexe: "M", classe: "Terminale C", dateNaissance: "28/05/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250293", nom: "ABALOU", prenom: "Eunice", sexe: "F", classe: "Terminale A", dateNaissance: "05/11/2005", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250980", nom: "ANGOLO MOKO", prenom: "Sarah Doecas", sexe: "F", classe: "Terminale A", dateNaissance: "22/05/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250057", nom: "BAFOUNA NZOUNGOU", prenom: "Jordelle Benoit", sexe: "F", classe: "Terminale A", dateNaissance: "10/02/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250427", nom: "BANY NKOUA MBOU", prenom: "Michel", sexe: "M", classe: "Terminale A", dateNaissance: "06/12/2006", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250645", nom: "BICKINI", prenom: "Siloé La Perle Providence", sexe: "F", classe: "Terminale A", dateNaissance: "30/04/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250495", nom: "BOKABE MANGOLA", prenom: "Del Divin", sexe: "M", classe: "Terminale A", dateNaissance: "19/02/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250155", nom: "BOUTINDABEKA", prenom: "Grâce Emmanuelle", sexe: "F", classe: "Terminale A", dateNaissance: "16/01/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250579", nom: "ELENGA", prenom: "Marcel Prince Emmanuel", sexe: "M", classe: "Terminale A", dateNaissance: "13/12/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB251021", nom: "IKOUA MBONGUI", prenom: "Francis David", sexe: "M", classe: "Terminale A", dateNaissance: "11/07/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250407", nom: "KIBANGADI", prenom: "Ange Belfroid", sexe: "M", classe: "Terminale A", dateNaissance: "12/04/2008", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée général" },
-{ matricule: "CSJB250445", nom: "KIMPHOUGNA", prenom: "Nelcy Gracia", sexe: "M", classe: "Terminale A", dateNaissance: "17/11/2005", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250424", nom: "KOUMOUS", prenom: "Christie Noella", sexe: "F", classe: "Terminale A", dateNaissance: "16/11/2008", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250269", nom: "LEMBE", prenom: "Messie Arnaud", sexe: "M", classe: "Terminale A", dateNaissance: "08/04/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250974", nom: "LIBILIBI", prenom: "Sacre Anaise Esther", sexe: "F", classe: "Terminale A", dateNaissance: "29/07/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250831", nom: "LOCKO NDONA", prenom: "Chrisvie Deluche", sexe: "F", classe: "Terminale A", dateNaissance: "02/09/2007", lieuNaissance: "NKAYI", cycle: "Lycée général" },
-{ matricule: "CSJB250964", nom: "MADINGOU", prenom: "Christ Bonheur", sexe: "M", classe: "Terminale A", dateNaissance: "06/04/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250715", nom: "MAMPOUYA", prenom: "Espoir", sexe: "M", classe: "Terminale A", dateNaissance: "09/10/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250047", nom: "MIATOUNDILA", prenom: "Asnath philippine", sexe: "F", classe: "Terminale A", dateNaissance: "01/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250870", nom: "MIENAHATA", prenom: "Sergio Divin Brudege", sexe: "M", classe: "Terminale A", dateNaissance: "30/04/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250123", nom: "MOULETI OKIEMY", prenom: "Victoria oxane Eryckanht", sexe: "F", classe: "Terminale A", dateNaissance: "31/01/2007", lieuNaissance: "BRAZZVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250333", nom: "NDOULO", prenom: "Brayanne Veronica", sexe: "F", classe: "Terminale A", dateNaissance: "07/04/2008", lieuNaissance: "BRAZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250948", nom: "NGAMPIKA", prenom: "Emmanuelle Brigit Andréa", sexe: "F", classe: "Terminale A", dateNaissance: "25/01/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250334", nom: "NGATIE ZABANA", prenom: "Furcisse Mignon", sexe: "M", classe: "Terminale A", dateNaissance: "04/11/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250862", nom: "NGOULOU-NGAMBOU", prenom: "Exaucé Dorel", sexe: "M", classe: "Terminale A", dateNaissance: "20/04/2010", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250849", nom: "NTSOLOUKA", prenom: "Esperance", sexe: "F", classe: "Terminale A", dateNaissance: "18/07/2007", lieuNaissance: "KINSHASA", cycle: "Lycée général" },
-{ matricule: "CSJB250246", nom: "OKANA DIRA", prenom: "Pierrobyne François", sexe: "F", classe: "Terminale A", dateNaissance: "23/09/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250652", nom: "OMOALI", prenom: "Jessica Pascal", sexe: "F", classe: "Terminale A", dateNaissance: "23/03/2008", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250381", nom: "PAMBOU", prenom: "Chelive Messy", sexe: "F", classe: "Terminale A", dateNaissance: "27/02/2008", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée général" },
-{ matricule: "CSJB250618", nom: "SITA", prenom: "Kares Vivier David", sexe: "M", classe: "Terminale A", dateNaissance: "18/08/2006", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250460", nom: "ABOUL METSAMPITO", prenom: "Abigaele", sexe: "F", classe: "Terminale D1", dateNaissance: "19/11/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250459", nom: "BINANA", prenom: "Cleve Immaculée", sexe: "F", classe: "Terminale D1", dateNaissance: "30/08/2005", lieuNaissance: "KINKALA", cycle: "Lycée général" },
-{ matricule: "CSJB250326", nom: "DE-BINDIKOU", prenom: "Zenon Dieu Le Veut", sexe: "M", classe: "Terminale D1", dateNaissance: "20/08/2007", lieuNaissance: "BRAZZAVILE", cycle: "Lycée général" },
-{ matricule: "CSJB250082", nom: "EBENGUI WANDO", prenom: "Pregana Oldy", sexe: "M", classe: "Terminale D1", dateNaissance: "14/07/2003", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250101", nom: "ELO", prenom: "Roven Elvis", sexe: "M", classe: "Terminale D1", dateNaissance: "23/09/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250297", nom: "GOUELOKO AZAEL", prenom: "Exaucé Stacy Azaël", sexe: "M", classe: "Terminale D1", dateNaissance: "23/06/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250416", nom: "KISSANGOU", prenom: "Michellle Rodreyvie", sexe: "F", classe: "Terminale D1", dateNaissance: "28/06/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250066", nom: "LIBONDO LOMER", prenom: "Christ", sexe: "M", classe: "Terminale D1", dateNaissance: "24/10/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250177", nom: "LOUVOUNOU NGOMA", prenom: "Manika Darlouise", sexe: "F", classe: "Terminale D1", dateNaissance: "26/09/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250232", nom: "MAKAYA", prenom: "Anna Louisette", sexe: "F", classe: "Terminale D1", dateNaissance: "15/06/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250546", nom: "MAKOMBI", prenom: "Rabbi Gloire Chadrac", sexe: "M", classe: "Terminale D1", dateNaissance: "06/02/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250954", nom: "MAKOUNKOU", prenom: "Chrisna Flodela Darline", sexe: "F", classe: "Terminale D1", dateNaissance: "17/05/2007", lieuNaissance: "KIBOUNDE", cycle: "Lycée général" },
-{ matricule: "CSJB250266", nom: "MAYET AKIRI", prenom: "Dom Marisia", sexe: "F", classe: "Terminale D1", dateNaissance: "21/08/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250085", nom: "MBIANDOU TCHAPDA", prenom: "Gloria Adele Nicole", sexe: "F", classe: "Terminale D1", dateNaissance: "23/08/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250268", nom: "MBOUNGA DIMI", prenom: "Jackson Felicia", sexe: "M", classe: "Terminale D1", dateNaissance: "09/06/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250953", nom: "MIONLABI", prenom: "Naomie Grâce", sexe: "F", classe: "Terminale D1", dateNaissance: "30/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250417", nom: "MOUTAMBA", prenom: "Beni Rachidy", sexe: "M", classe: "Terminale D1", dateNaissance: "03/04/2005", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250822", nom: "MVOULA BAYENGOU", prenom: "Thérésia Jennifer", sexe: "F", classe: "Terminale D1", dateNaissance: "22/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250032", nom: "NGUILA", prenom: "Brunn Priselle", sexe: "F", classe: "Terminale D1", dateNaissance: "12/05/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250463", nom: "NSIMOU BOUYOU", prenom: "Jeremy Francel", sexe: "M", classe: "Terminale D1", dateNaissance: "08/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250449", nom: "NZOUNGOU", prenom: "Princia Elodie", sexe: "F", classe: "Terminale D1", dateNaissance: "25/03/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250240", nom: "OKILI", prenom: "Orlane Dyvanie Relda", sexe: "F", classe: "Terminale D1", dateNaissance: "06/10/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250281", nom: "OKOMBI IKOMBO", prenom: "Joe Christ Pascal", sexe: "M", classe: "Terminale D1", dateNaissance: "04/08/2007", lieuNaissance: "BRAZZAVILE", cycle: "Lycée général" },
-{ matricule: "CSJB250088", nom: "ONDINA", prenom: "Marrion Rosney", sexe: "M", classe: "Terminale D1", dateNaissance: "15/04/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250250", nom: "OSSIBI NGANGA", prenom: "Orcia Diessi", sexe: "F", classe: "Terminale D1", dateNaissance: "24/04/2005", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250258", nom: "ROCH", prenom: "Celeste Blessed Estrella", sexe: "F", classe: "Terminale D1", dateNaissance: "19/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250100", nom: "TCHIKAYA", prenom: "Theresia Divine", sexe: "F", classe: "Terminale D1", dateNaissance: "20/09/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250498", nom: "TCHINIANGA", prenom: "Jeanne Marie", sexe: "F", classe: "Terminale D1", dateNaissance: "01/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250478", nom: "AYOU BOUNSANA", prenom: "Viviana Vianelle", sexe: "F", classe: "Terminale D2", dateNaissance: "21/01/2005", lieuNaissance: "BRAZZAVILE", cycle: "Lycée général" },
-{ matricule: "CSJB250527", nom: "BAKADILA", prenom: "Josué Ferdinond", sexe: "M", classe: "Terminale D2", dateNaissance: "04/07/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250856", nom: "BAKALA", prenom: "Gloire Rolain", sexe: "M", classe: "Terminale D2", dateNaissance: "25/09/2004", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250848", nom: "BANZOUZI", prenom: "Bilove Clever", sexe: "M", classe: "Terminale D2", dateNaissance: "06/07/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250099", nom: "BAZEBOUKILA NKENGUE", prenom: "Gusnie Belvie", sexe: "F", classe: "Terminale D2", dateNaissance: "09/07/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250350", nom: "BEANGONGO MOUKOKO", prenom: "Don Prince", sexe: "M", classe: "Terminale D2", dateNaissance: "26/07/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250414", nom: "DEAMBA THAKAVET", prenom: "Jibena Josué", sexe: "M", classe: "Terminale D2", dateNaissance: "20/06/2007", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250270", nom: "DIAMFOUANA NSONA", prenom: "Jacques Tressy", sexe: "F", classe: "Terminale D2", dateNaissance: "27/05/2008", lieuNaissance: "BRAZZAVILE", cycle: "Lycée général" },
-{ matricule: "CSJB250522", nom: "EKOMBO NANGA", prenom: "Quetin Dieuveille", sexe: "M", classe: "Terminale D2", dateNaissance: "07/03/2008", lieuNaissance: "OUESSO", cycle: "Lycée général" },
-{ matricule: "CSJB250689", nom: "ELENGA", prenom: "Eric Junior", sexe: "M", classe: "Terminale D2", dateNaissance: "23/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250170", nom: "GOMA GABOU", prenom: "Dorcas Emmanuella", sexe: "F", classe: "Terminale D2", dateNaissance: "12/07/2008", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée général" },
-{ matricule: "CSJB250627", nom: "IDBEMACK MAKITA", prenom: "GLOIre Mon Tresor", sexe: "M", classe: "Terminale D2", dateNaissance: "27/06/2007", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250335", nom: "KIMBEMBE LOUBA", prenom: "Reine Michelle", sexe: "F", classe: "Terminale D2", dateNaissance: "24/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250510", nom: "KOUROU", prenom: "Arjoc Sephora", sexe: "M", classe: "Terminale D2", dateNaissance: "19/05/2009", lieuNaissance: "BRAZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250973", nom: "KOUSSIKANA", prenom: "Sainte Adelle", sexe: "F", classe: "Terminale D2", dateNaissance: "23/08/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250534", nom: "LOUAMBA NZOUMBA", prenom: "Honoria", sexe: "F", classe: "Terminale D2", dateNaissance: "30/06/2007", lieuNaissance: "DOLISIE", cycle: "Lycée général" },
-{ matricule: "CSJB250568", nom: "MABANDZA", prenom: "Bénie Sephora Princesse", sexe: "F", classe: "Terminale D2", dateNaissance: "14/12/2005", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250956", nom: "MABIALA MOUILA", prenom: "Edna Abigaëlle", sexe: "F", classe: "Terminale D2", dateNaissance: "30/09/2007", lieuNaissance: "DOLISIE", cycle: "Lycée général" },
-{ matricule: "CSJB250080", nom: "MAHOUKOU", prenom: "Dorcia Exaucé", sexe: "F", classe: "Terminale D2", dateNaissance: "10/04/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250558", nom: "MAÏSSA", prenom: "Gaëla Gracia Abetina", sexe: "F", classe: "Terminale D2", dateNaissance: "15/05/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250126", nom: "MAKOKOU - MABOULA", prenom: "Godlova Honoraël", sexe: "F", classe: "Terminale D2", dateNaissance: "05/01/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250379", nom: "MAKOUMBOU MATT", prenom: "Béni de Mark", sexe: "M", classe: "Terminale D2", dateNaissance: "13/12/2008", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250830", nom: "MAMPOUYA NGANGOULA", prenom: "Ardecia Rol Dormaide", sexe: "F", classe: "Terminale D2", dateNaissance: "24/06/2004", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250552", nom: "MATONDO MIENANZAMBI", prenom: "Jovial Gelfran", sexe: "M", classe: "Terminale D2", dateNaissance: "16/04/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250474", nom: "MAYOKOSSO N'SEVANI", prenom: "Yedidja", sexe: "M", classe: "Terminale D2", dateNaissance: "12/01/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250616", nom: "MBANI NDZELI", prenom: "Mavie Hurmes", sexe: "F", classe: "Terminale D2", dateNaissance: "01/09/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250962", nom: "MBEMBA KIMBEMBE", prenom: "Wilfrid Farel", sexe: "M", classe: "Terminale D2", dateNaissance: "21/11/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250844", nom: "M'BEY", prenom: "Milena Cardelle", sexe: "F", classe: "Terminale D2", dateNaissance: "21/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250113", nom: "MBONGO", prenom: "Jordeo Brichel", sexe: "M", classe: "Terminale D2", dateNaissance: "12/01/2007", lieuNaissance: "IMFONDO", cycle: "Lycée général" },
-{ matricule: "CSJB250549", nom: "MESSIEM ETHO", prenom: "Ange Seraphina", sexe: "F", classe: "Terminale D2", dateNaissance: "28/04/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250597", nom: "MIABOUNA BAFF", prenom: "Lercia Dieuvy", sexe: "M", classe: "Terminale D2", dateNaissance: "02/02/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250448", nom: "MOUANDA MAWALA", prenom: "Junior", sexe: "M", classe: "Terminale D2", dateNaissance: "10/03/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250640", nom: "MWAMBA", prenom: "Johnson", sexe: "M", classe: "Terminale D2", dateNaissance: "08/08/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250590", nom: "NGOMA", prenom: "Paveline Olicia", sexe: "F", classe: "Terminale D2", dateNaissance: "08/08/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250129", nom: "NGOUMA", prenom: "Djeni Ruth", sexe: "F", classe: "Terminale D2", dateNaissance: "06/05/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250996", nom: "NKODIA", prenom: "Holly Jérémi Réference", sexe: "M", classe: "Terminale D2", dateNaissance: "06/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250027", nom: "NKONO", prenom: "Gunel Verdy", sexe: "M", classe: "Terminale D2", dateNaissance: "23/12/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250950", nom: "NKOUA", prenom: "Holly Jérémi Réference", sexe: "M", classe: "Terminale D2", dateNaissance: "06/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250623", nom: "NTADI LOUPEMO", prenom: "Riana Vanne", sexe: "F", classe: "Terminale D2", dateNaissance: "22/10/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250331", nom: "NZATSI MAKELE", prenom: "Claude Précieux", sexe: "M", classe: "Terminale D2", dateNaissance: "10/03/2009", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée général" },
-{ matricule: "CSJB250322", nom: "OBA NGOSSINI", prenom: "Anna Emmanuelle", sexe: "F", classe: "Terminale D2", dateNaissance: "19/10/2007", lieuNaissance: "BRAZZAILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250989", nom: "OBESSA", prenom: "Daniella Capucine", sexe: "F", classe: "Terminale D2", dateNaissance: "16/09/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250955", nom: "OBESSA", prenom: "Danielle Capucine", sexe: "F", classe: "Terminale D2", dateNaissance: "16/09/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250343", nom: "OKILI", prenom: "Rocha Orore", sexe: "F", classe: "Terminale D2", dateNaissance: "18/08/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250329", nom: "ONANGA", prenom: "Michelle Colombe", sexe: "F", classe: "Terminale D2", dateNaissance: "29/07/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250217", nom: "ONSIE NANIYOULA", prenom: "Joelda", sexe: "F", classe: "Terminale D2", dateNaissance: "11/03/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250367", nom: "PANDZOU", prenom: "Martial", sexe: "M", classe: "Terminale D2", dateNaissance: "01/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250206", nom: "SABOU MATSOUMBOU", prenom: "Kibondo Ruth", sexe: "F", classe: "Terminale D2", dateNaissance: "01/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée général" },
-{ matricule: "CSJB250404", nom: "ANADIF", prenom: "Oumar", sexe: "M", classe: "Terminale G2", dateNaissance: "13/02/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250034", nom: "ANDZOUANA", prenom: "Kenneth", sexe: "F", classe: "Terminale G2", dateNaissance: "01/01/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250185", nom: "ANGAGA", prenom: "Jo-Bonheur", sexe: "M", classe: "Terminale G2", dateNaissance: "09/03/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250578", nom: "BALOUNGUISSA", prenom: "Stael Divin", sexe: "M", classe: "Terminale G2", dateNaissance: "08/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250141", nom: "BIANTSI", prenom: "Esther Paul", sexe: "F", classe: "Terminale G2", dateNaissance: "12/02/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250147", nom: "BIANTSI", prenom: "Lauraine Felicia", sexe: "F", classe: "Terminale G2", dateNaissance: "12/02/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250317", nom: "BONAZH", prenom: "Divine Keren", sexe: "F", classe: "Terminale G2", dateNaissance: "08/07/2009", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250065", nom: "BOUET ABALIBI", prenom: "Destiné", sexe: "F", classe: "Terminale G2", dateNaissance: "10/05/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250466", nom: "BOUSSOUGOU", prenom: "Dan Ardy", sexe: "M", classe: "Terminale G2", dateNaissance: "30/05/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250482", nom: "BUENIMIO METOUBELA", prenom: "Jeancy", sexe: "M", classe: "Terminale G2", dateNaissance: "02/08/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250278", nom: "DISSOUSSOU", prenom: "Emmanuel", sexe: "M", classe: "Terminale G2", dateNaissance: "26/01/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250709", nom: "ENGOBO MOKOKO", prenom: "Rosalie Loucege", sexe: "F", classe: "Terminale G2", dateNaissance: "19/10/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250619", nom: "GATSE-OKO", prenom: "Solph Meyerson", sexe: "F", classe: "Terminale G2", dateNaissance: "18/07/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250458", nom: "KITILOU", prenom: "Lauraine Givelle", sexe: "F", classe: "Terminale G2", dateNaissance: "14/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250490", nom: "LEBANITOU ZITA", prenom: "Ruben Fidelie", sexe: "F", classe: "Terminale G2", dateNaissance: "21/10/2008", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250041", nom: "LOMERTH", prenom: "Truche Aliga", sexe: "F", classe: "Terminale G2", dateNaissance: "13/10/2005", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée technique" },
-{ matricule: "CSJB250036", nom: "LONGO", prenom: "Merveille Michelle Ketia", sexe: "F", classe: "Terminale G2", dateNaissance: "26/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250199", nom: "LOUKESSA MBOMBO", prenom: "Aimee", sexe: "F", classe: "Terminale G2", dateNaissance: "31/07/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250205", nom: "MABANZA", prenom: "Oman Neville", sexe: "M", classe: "Terminale G2", dateNaissance: "23/08/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250437", nom: "MATARI", prenom: "Bienvenu Consolé Dieunedort", sexe: "M", classe: "Terminale G2", dateNaissance: "22/09/2008", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250854", nom: "MBAN", prenom: "Mauria Précieux Archange", sexe: "M", classe: "Terminale G2", dateNaissance: "02/09/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250252", nom: "MBOMA", prenom: "Benicia Gina Kadidia", sexe: "F", classe: "Terminale G2", dateNaissance: "05/05/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250260", nom: "MBOUMBA", prenom: "Sagesse", sexe: "F", classe: "Terminale G2", dateNaissance: "15/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250518", nom: "MBOU NADOUACCK", prenom: "Mercia Lauraine", sexe: "F", classe: "Terminale G2", dateNaissance: "24/07/2007", lieuNaissance: "POINTE-NOIRE", cycle: "Lycée technique" },
-{ matricule: "CSJB250038", nom: "MBOUSSA ETOU", prenom: "Garcia Samuel", sexe: "M", classe: "Terminale G2", dateNaissance: "28/05/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250432", nom: "MIEDE", prenom: "Yohane", sexe: "M", classe: "Terminale G2", dateNaissance: "01/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250845", nom: "MOSSIBO", prenom: "Christyna", sexe: "M", classe: "Terminale G2", dateNaissance: "30/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250487", nom: "MVOUAMA", prenom: "Christ Delpiero Armando", sexe: "M", classe: "Terminale G2", dateNaissance: "12/09/2007", lieuNaissance: "BRAZAAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250238", nom: "MVOUEZOLO", prenom: "Shekina Benie", sexe: "F", classe: "Terminale G2", dateNaissance: "19/11/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250642", nom: "NGAMBAKA", prenom: "Emmanuel Falbrice Lionel", sexe: "M", classe: "Terminale G2", dateNaissance: "02/04/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB251019", nom: "NGATSE DIRA", prenom: "Rothiana Bedy", sexe: "F", classe: "Terminale G2", dateNaissance: "12/09/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250615", nom: "NGUIE", prenom: "Chamira Lang", sexe: "F", classe: "Terminale G2", dateNaissance: "06/05/2009", lieuNaissance: "BRAZZVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250607", nom: "NTSIKA", prenom: "Beni Prince Gabriel", sexe: "M", classe: "Terminale G2", dateNaissance: "12/03/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250218", nom: "NZOUMBA MAHOUNGOU", prenom: "Monica Julie Samira", sexe: "F", classe: "Terminale G2", dateNaissance: "23/03/2017", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250499", nom: "OBAMBI ENGAMBE", prenom: "Raymond Rayann", sexe: "M", classe: "Terminale G2", dateNaissance: "01/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250136", nom: "OKOUYA MANIANE", prenom: "Paule Kiberly", sexe: "F", classe: "Terminale G2", dateNaissance: "26/09/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250362", nom: "OLAOGOUN-OLOU", prenom: "Felix Daniel Steven", sexe: "M", classe: "Terminale G2", dateNaissance: "24/02/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250221", nom: "ONGOUNGA ATSOLO", prenom: "Sublime Edvie", sexe: "F", classe: "Terminale G2", dateNaissance: "17/07/2006", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250675", nom: "ONIDJE", prenom: "Princilia", sexe: "F", classe: "Terminale G2", dateNaissance: "20/05/2008", lieuNaissance: "Bénin", cycle: "Lycée technique" },
-{ matricule: "CSJB250676", nom: "OUAKABAKA", prenom: "Julia Amandine", sexe: "F", classe: "Terminale G2", dateNaissance: "24/12/2009", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250863", nom: "TCHIKAYA TCHIBINDA", prenom: "Marjine Lahila", sexe: "F", classe: "Terminale G2", dateNaissance: "04/03/2005", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250860", nom: "YOA", prenom: "Angela Baltazard", sexe: "F", classe: "Terminale G2", dateNaissance: "09/02/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250188", nom: "YOMVOULA", prenom: "Manassé Mack Eltalhn", sexe: "M", classe: "Terminale G2", dateNaissance: "20/02/2008", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
-{ matricule: "CSJB250690", nom: "ZYTHA ALLONY", prenom: "Samantha", sexe: "F", classe: "Terminale G2", dateNaissance: "11/01/2007", lieuNaissance: "BRAZZAVILLE", cycle: "Lycée technique" },
+/* ============================
+   🔹 BASE DE DONNÉES DES ÉLÈVES
+   ============================ */
+const eleves = [
+  { matricule: "JB240036",nom: "ABA GANGOUE",prenom: "ALBERTO SM",sexe: "M",classe: "Première D2",moyenne: 12.40,mention: "Assez Bien"},
+  { matricule: "JB201454",nom: "ABOKOMA",prenom: "JULIANA CLAVERNA",sexe: "F",classe: "Première D2",moyenne: 9.15,mention: "Insuffisant"}
+];
 
-      { matricule: "JB201278", nom: "ABALOU", prenom: "Eunice", sexe: "F", classe: "Première A", dateNaissance: "5 juillet 2009", lieuNaissance: "Pointe-Noire", cycle: "Lycée général" },
-      { matricule: "JB201454", nom: "ABOKOMA", prenom: "JULIANA CLAVERNA", sexe: "F", classe: "Première D2", dateNaissance: "22 octobre 2008", lieuNaissance: "Dolisie", cycle: "Lycée général" }
-    ];
+/* ====================================
+   🔍 RECHERCHE ET AFFICHAGE DES DONNÉES
+   ==================================== */
+document.getElementById("searchForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const resultSection = document.getElementById("resultSection");
 
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const query = document.getElementById('searchInput').value.trim().toLowerCase();
-      const resultSection = document.getElementById('resultSection');
-      const result = eleves.find(el => el.matricule.toLowerCase() === query || el.nom.toLowerCase() === query);
-      const classResults = eleves.filter(el => el.classe.toLowerCase() === query);
+  const eleve = eleves.find(el => 
+    el.matricule.toLowerCase() === query ||
+    el.nom.toLowerCase() === query ||
+    el.prenom.toLowerCase() === query
+  );
 
-      resultSection.style.display = 'block';
+  const classResults = eleves.filter(el => el.classe.toLowerCase() === query);
 
-      // 🔹 Recherche par classe
-      if (classResults.length > 0) {
-        let tableRows = classResults.map(el => `
-          <tr>
-            <td>${el.matricule}</td>
-            <td>${el.prenom} ${el.nom}</td>
-            <td>${el.sexe}</td>
-            <td>${el.dateNaissance}</td>
-            <td>${el.lieuNaissance}</td>
-            <td>${el.cycle}</td>
-          </tr>`).join('');
+  resultSection.style.display = "block";
 
-        resultSection.innerHTML = `
-          <h3>Liste des élèves de ${classResults[0].classe}</h3>
-          <table border="1" cellspacing="0" cellpadding="6" width="100%" style="border-collapse:collapse;">
-            <tr style="background-color:#0044cc;color:white;">
-              <th>Matricule</th><th>Nom & Prénom</th><th>Sexe</th><th>Date de naissance</th><th>Lieu de naissance</th><th>Cycle</th>
-            </tr>
-            ${tableRows}
-          </table>
-          <button class="pdf-btn" id="downloadClassPDF">📄 Télécharger la liste PDF</button>
-        `;
+  /* 🔹 Recherche par classe */
+  if(classResults.length > 0){
+    let rows = classResults.map(el => `
+      <tr>
+        <td>${el.matricule}</td>
+        <td>${el.prenom} ${el.nom}</td>
+        <td>${el.sexe}</td>
+        <td>${el.moyenne}</td>
+        <td>${el.mention}</td>
+      </tr>
+    `).join("");
 
-        document.getElementById('downloadClassPDF').addEventListener('click', function(){
-          generateClassPDF(classResults);
-        });
-        return;
-      }
+    resultSection.innerHTML = `
+      <h3>Résultats : ${classResults[0].classe}</h3>
+      <table width="100%" border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse;">
+        <tr style="background:#0044cc;color:white;">
+          <th>Matricule</th>
+          <th>Nom & Prénom</th>
+          <th>Sexe</th>
+          <th>Moyenne</th>
+          <th>Mention</th>
+        </tr>
+        ${rows}
+      </table>
+      <button id="downloadClassPDF" class="pdf-btn">📄 Télécharger PDF</button>
+    `;
 
-      // 🔹 Recherche individuelle
-      if (result) {
-        const icon = result.sexe === "M"
-          ? '<img src="https://cdn-icons-png.flaticon.com/512/236/236831.png" class="sexe-icon" alt="Homme">'
-          : '<img src="https://cdn-icons-png.flaticon.com/512/236/236832.png" class="sexe-icon" alt="Femme">';
+    document.getElementById("downloadClassPDF").onclick = () => generateClassPDF(classResults);
+    return;
+  }
 
-        resultSection.innerHTML = `
-          <h3>Informations de ${result.prenom} ${result.nom}</h3>
-          <p><strong>Matricule :</strong> ${result.matricule}</p>
-          <p><strong>Sexe :</strong> ${result.sexe} ${icon}</p>
-          <p><strong>Classe actuelle :</strong> ${result.classe}</p>
-          <p><strong>Date de naissance :</strong> ${result.dateNaissance}</p>
-          <p><strong>Lieu de naissance :</strong> ${result.lieuNaissance}</p>
-          <p><strong>Cycle :</strong> ${result.cycle}</p>
-          <div class="confirmation">🎉 Félicitations ! Vous êtes bien inscrit(e) au <strong>Complexe Scolaire Joseph Bikoko</strong>. Nous vous souhaitons une excellente année scolaire !</div>
-          <button class="pdf-btn" id="downloadPDF">📄 Télécharger en PDF</button>
-        `;
+  /* 🔹 Recherche élève individuel */
+  if(eleve){
+    const icon = eleve.sexe === "M"
+      ? '<img src="https://cdn-icons-png.flaticon.com/512/236/236831.png" class="sexe-icon">'
+      : '<img src="https://cdn-icons-png.flaticon.com/512/236/236832.png" class="sexe-icon">';
 
-        document.getElementById('downloadPDF').addEventListener('click', function(){
-          generatePDF(result);
-        });
-      } else {
-        resultSection.innerHTML = `
-          <div class="error">⚠️ Votre nom n’a pas été retrouvé dans notre base de données.<br>Veuillez vous rapprocher de la direction pour régulariser votre situation dans les plus brefs délais.</div>
-        `;
-      }
-    });
+    const msg = eleve.moyenne >= 10
+      ? `<div class="confirmation">🎉 Félicitations ! Vous êtes admis. Continuez ainsi, votre travail porte des fruits.</div>`
+      : `<div class="error" style="background:#fff4e6;color:#cc6600;border-left:5px solid #ff9900">😞 Dommage ! Non admis. Courage, continuez à travailler avec sérieux.</div>`;
 
-    // ✅ Fonction PDF individuelle (corrigée)
-    function generatePDF(eleve) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      try { doc.addImage('logo.png', 'PNG', 10, 10, 20, 20); } catch(e) {}
-      doc.setFontSize(14);
-      doc.text("COMPLEXE SCOLAIRE JOSEPH BIKOKO", 35, 20);
-      doc.text("Fiche d'information de l'élève", 35, 30);
-      doc.setFontSize(12);
-      doc.text(`Nom et prénom : ${eleve.prenom} ${eleve.nom}`, 10, 50);
-      doc.text(`Matricule : ${eleve.matricule}`, 10, 60);
-      doc.text(`Sexe : ${eleve.sexe}`, 10, 70);
-      doc.text(`Classe actuelle : ${eleve.classe}`, 10, 80);
-      doc.text(`Date de naissance : ${eleve.dateNaissance}`, 10, 90);
-      doc.text(`Lieu de naissance : ${eleve.lieuNaissance}`, 10, 100);
-      doc.text(`Cycle : ${eleve.cycle}`, 10, 110);
-      doc.text("🎉 Félicitations ! Vous êtes bien inscrit(e) au Complexe Scolaire Joseph Bikoko.", 10, 130);
-      doc.save(`${eleve.prenom}_${eleve.nom}.pdf`);
-    }
+    resultSection.innerHTML = `
+      <h3>Résultats de ${eleve.prenom} ${eleve.nom}</h3>
+      <p><strong>Matricule :</strong> ${eleve.matricule}</p>
+      <p><strong>Sexe :</strong> ${eleve.sexe} ${icon}</p>
+      <p><strong>Classe :</strong> ${eleve.classe}</p>
+      <p><strong>Moyenne :</strong> <strong>${eleve.moyenne}/20</strong></p>
+      <p><strong>Mention :</strong> ${eleve.mention}</p>
+      ${msg}
+      <button id="downloadPDF" class="pdf-btn">📄 Télécharger PDF</button>
+    `;
 
-    // ✅ Fonction PDF classe complète (corrigée)
-    function generateClassPDF(elevesClasse) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      try { doc.addImage('logo.png', 'PNG', 10, 10, 20, 20); } catch(e) {}
-      doc.setFontSize(14);
-      doc.text("COMPLEXE SCOLAIRE JOSEPH BIKOKO", 35, 20);
-      doc.text(`Liste de la classe : ${elevesClasse[0].classe}`, 35, 30);
-      doc.setFontSize(10);
-      let y = 50;
-      elevesClasse.forEach((el, index) => {
-        doc.text(`${index + 1}. ${el.prenom} ${el.nom} – ${el.matricule} – ${el.sexe} – ${el.dateNaissance} – ${el.lieuNaissance} – ${el.cycle}`, 10, y);
-        y += 8;
-        if (y > 270) { doc.addPage(); y = 20; }
-      });
-      doc.save(`Liste_${elevesClasse[0].classe}.pdf`);
-    }
+    document.getElementById("downloadPDF").onclick = () => generatePDF(eleve);
+  }
+  else {
+    resultSection.innerHTML = `
+      <div class="error">⚠️ Aucun élève correspondant à votre recherche.</div>
+    `;
+  }
+});
+
+/* ===============================
+   📄 PDF ÉLÈVE
+   =============================== */
+function generatePDF(eleve){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  try{ doc.addImage("logo.png", "PNG", 10, 10, 20, 20); }catch{}
+
+  doc.setFontSize(15);
+  doc.text("COMPLEXE SCOLAIRE JOSEPH BIKOKO", 40, 20);
+  doc.text("Bulletin de Résultats Officiel", 40, 30);
+
+  doc.setFontSize(12);
+  doc.text(`Nom : ${eleve.prenom} ${eleve.nom}`, 10, 60);
+  doc.text(`Matricule : ${eleve.matricule}`, 10, 70);
+  doc.text(`Sexe : ${eleve.sexe}`, 10, 80);
+  doc.text(`Classe : ${eleve.classe}`, 10, 90);
+  doc.text(`Moyenne : ${eleve.moyenne}/20`, 10, 100);
+  doc.text(`Mention : ${eleve.mention}`, 10, 110);
+
+  doc.text(eleve.moyenne >= 10 ?
+    "Félicitations ! Vous êtes admis." :
+    "Dommage ! Vous n'êtes pas admis.", 10, 130);
+
+  doc.save(`Resultat_${eleve.nom}.pdf`);
+}
+
+/* ===============================
+   📄 PDF CLASSE
+   =============================== */
+function generateClassPDF(liste){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  try{ doc.addImage("logo.png", "PNG", 10, 10, 20, 20); }catch{}
+
+  doc.setFontSize(14);
+  doc.text("COMPLEXE SCOLAIRE JOSEPH BIKOKO", 40, 20);
+  doc.text(`Résultats – Classe ${liste[0].classe}`, 40, 30);
+
+  let y = 50;
+
+  liste.forEach((el, i) => {
+    doc.text(`${i+1}. ${el.prenom} ${el.nom} – Moy : ${el.moyenne}/20 – ${el.mention}`, 10, y);
+    y += 8;
+    if(y > 270){ doc.addPage(); y = 20; }
+  });
+
+  doc.save(`Classe_${liste[0].classe}.pdf`);
+}
   </script>
 </body>
 </html>
